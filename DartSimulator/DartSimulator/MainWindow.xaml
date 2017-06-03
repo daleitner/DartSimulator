@@ -5,8 +5,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DartSimulator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="400" Width="525">
     <Grid>
-        
-    </Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="40"></RowDefinition>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="2*"/>
+		</Grid.RowDefinitions>
+		<Label Content="Dart Simulator 501 DO" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"></Label>
+		<Grid Grid.Row="1">
+			<StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Legs:" Width="80"></Label>
+					<TextBox Text="{Binding Path=AmountLegs}" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Trefferquote:" Width="80"></Label>
+					<TextBox Text="{Binding Path=HitQuote}" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Trefferradius:" Width="80"></Label>
+					<TextBox Text="{Binding Path=HitRadius}" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+				</StackPanel>
+			</StackPanel>
+			<Button Content="Simulation Starten" Command="{Binding Path=StartCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,8"></Button>
+			<Rectangle Height="2" VerticalAlignment="Bottom" Fill="Black"></Rectangle>
+		</Grid>
+		<StackPanel Grid.Row="2" Orientation="Horizontal">
+			<StackPanel Orientation="Vertical">
+				<Label Content="Legs:"></Label>
+				<ListBox Width="100" ItemsSource="{Binding Path=Legs}" SelectedItem="{Binding Path=SelectedLeg}" VerticalAlignment="Stretch" Margin="5"></ListBox>
+			</StackPanel>
+			<StackPanel Orientation="Vertical">
+				<Label Content="Runden:"></Label>
+				<ListBox Width="100" ItemsSource="{Binding Path=Runden}" VerticalAlignment="Stretch" Margin="5"></ListBox>
+			</StackPanel>
+			<StackPanel Orientation="Vertical" Margin="5,5,0,0">
+				<StackPanel Orientation="Horizontal">
+					<Label Content="3 Dart Average:" Width="90"></Label>
+					<Label Content="{Binding Path=Average}"></Label>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Doppelquote:" Width="90"></Label>
+					<Label Content="{Binding Path=DoubleQuote}"></Label>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Best Leg:" Width="90"></Label>
+					<Label Content="{Binding Path=BestLeg}"></Label>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Worst Leg:" Width="90"></Label>
+					<Label Content="{Binding Path=WorstLeg}"></Label>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Darts Average:" Width="90"></Label>
+					<Label Content="{Binding Path=DartAverage}"></Label>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="100:" Width="90"></Label>
+					<Label Content="{Binding Path=Hundrets}"></Label>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="140:" Width="90"></Label>
+					<Label Content="{Binding Path=HundretFourties}"></Label>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="180:" Width="90"></Label>
+					<Label Content="{Binding Path=HundretEighties}"></Label>
+				</StackPanel>
+			</StackPanel>
+		</StackPanel>
+	</Grid>
 </Window>
