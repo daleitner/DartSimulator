@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using DartSimulator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Should;
 using ApprovalTests;
 using ApprovalTests.Reporters;
-using ApprovalUtilities.Utilities;
 
 namespace DartSimulatorTests
 {

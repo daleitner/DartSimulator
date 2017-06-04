@@ -16,16 +16,23 @@
 		<Grid Grid.Row="1">
 			<StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
 				<StackPanel Orientation="Horizontal">
-					<Label Content="Legs:" Width="80"></Label>
+					<Label Content="Legs:" Width="130"></Label>
 					<TextBox Text="{Binding Path=AmountLegs}" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
-					<Label Content="Trefferquote:" Width="80"></Label>
-					<TextBox Text="{Binding Path=HitQuote}" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+					<Label Content="Trefferquote Singles:" Width="130"></Label>
+					<TextBox Text="{Binding Path=SingleQuote}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+					<Label Content="%"></Label>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
-					<Label Content="Trefferradius:" Width="80"></Label>
-					<TextBox Text="{Binding Path=HitRadius}" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+					<Label Content="Trefferquote Doubles:" Width="130"></Label>
+					<TextBox Text="{Binding Path=DoubleQuote}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+					<Label Content="%"></Label>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Trefferquote Triples:" Width="130"></Label>
+					<TextBox Text="{Binding Path=TripleQuote}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+					<Label Content="%"></Label>
 				</StackPanel>
 			</StackPanel>
 			<Button Content="Simulation Starten" Command="{Binding Path=StartCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,8"></Button>
@@ -47,7 +54,7 @@
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
 					<Label Content="Doppelquote:" Width="90"></Label>
-					<Label Content="{Binding Path=DoubleQuote}"></Label>
+					<Label Content="{Binding Path=SimulatedDoubleQuote}"></Label>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
 					<Label Content="Best Leg:" Width="90"></Label>

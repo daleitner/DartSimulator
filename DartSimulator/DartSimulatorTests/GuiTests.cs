@@ -16,5 +16,16 @@ namespace DartSimulatorTests
 			var window = new MainWindow();
 			WpfApprovals.Verify(window);
 		}
+
+		[TestMethod]
+		public void CheckGuiWhenFilledValues()
+		{
+			var window = new MainWindow();
+			var viewModel = window.DataContext as MainViewModel;
+			viewModel.DoubleQuote = 20;
+			viewModel.SingleQuote = 50;
+			viewModel.TripleQuote = 10;
+			WpfApprovals.Verify(window);
+		}
 	}
 }

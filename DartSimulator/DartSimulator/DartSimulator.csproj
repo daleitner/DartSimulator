@@ -66,7 +66,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controller\ISimulationController.cs" />
+    <Compile Include="Controller\SimulationController.cs" />
     <Compile Include="DartBoard.cs" />
+    <Compile Include="Factory\IViewModelFactory.cs" />
+    <Compile Include="Factory\ViewModelFactory.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="Leg.cs" />
     <Compile Include="MainViewModel.cs" />

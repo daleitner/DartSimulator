@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Base;
+using DartSimulator.Controller;
 
 namespace DartSimulator
 {
@@ -21,16 +22,19 @@ namespace DartSimulator
 		private int hundretFourties = 0;
 		private int hundretEighties = 0;
 		private int amountLegs = 10000;
-		private double hitQuote;
-		private double hitRadius;
+		private double singleQuote;
+		private double doubleQuote;
+		private double tripleQuote;
 		private Leg selectedLeg = null;
 		private ObservableCollection<Leg> legs = null;
-		private string doubleQuote = "";
+		private string simulatedDoubleQuote = "";
+		private readonly ISimulationController controller;
 		#endregion
 
 		#region ctors
-		public MainViewModel()
+		public MainViewModel(ISimulationController controller)
 		{
+			this.controller = controller;
 		}
 		#endregion
 
@@ -66,12 +70,14 @@ namespace DartSimulator
 				if (this.startCommand == null)
 				{
 					this.startCommand = new RelayCommand(
-						param => Start()
+						param => Start(),
+						param => CanStart()
 					);
 				}
 				return this.startCommand;
 			}
 		}
+
 		public int BestLeg
 		{
 			get
@@ -144,28 +150,40 @@ namespace DartSimulator
 				OnPropertyChanged("AmountLegs");
 			}
 		}
-		public double HitQuote
+		public double SingleQuote
 		{
 			get
 			{
-				return this.hitQuote;
+				return this.singleQuote;
 			}
 			set
 			{
-				this.hitQuote = value;
-				OnPropertyChanged("HitQuote");
+				this.singleQuote = value;
+				OnPropertyChanged("SingleQuote");
 			}
 		}
-		public double HitRadius
+		public double DoubleQuote
 		{
 			get
 			{
-				return this.hitRadius;
+				return this.doubleQuote;
 			}
 			set
 			{
-				this.hitRadius = value;
-				OnPropertyChanged("HitRadius");
+				this.doubleQuote = value;
+				OnPropertyChanged("DoubleQuote");
+			}
+		}
+		public double TripleQuote
+		{
+			get
+			{
+				return this.tripleQuote;
+			}
+			set
+			{
+				this.tripleQuote = value;
+				OnPropertyChanged("TripleQuote");
 			}
 		}
 		public Leg SelectedLeg
@@ -204,16 +222,16 @@ namespace DartSimulator
 				OnPropertyChanged("Legs");
 			}
 		}
-		public string DoubleQuote
+		public string SimulatedDoubleQuote
 		{
 			get
 			{
-				return this.doubleQuote;
+				return this.simulatedDoubleQuote;
 			}
 			set
 			{
-				this.doubleQuote = value;
-				OnPropertyChanged("DoubleQuote");
+				this.simulatedDoubleQuote = value;
+				OnPropertyChanged("SimulatedDoubleQuote");
 			}
 		}
 		#endregion
@@ -221,8 +239,12 @@ namespace DartSimulator
 		#region private methods
 		private void Start()
 		{
+			this.controller.StartSimulation();
 		}
-
+		private bool CanStart()
+		{
+			return this.SingleQuote > 0 && this.DoubleQuote > 0 && this.TripleQuote > 0;
+		}
 		#endregion
 
 		#region public methods
