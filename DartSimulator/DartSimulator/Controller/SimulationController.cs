@@ -8,7 +8,7 @@ namespace DartSimulator.Controller
 {
 	public class SimulationController : ISimulationController
 	{
-		public void StartSimulation()
+		public Result StartSimulation()
 		{
 			throw new NotImplementedException();
 		}

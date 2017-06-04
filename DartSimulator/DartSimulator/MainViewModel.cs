@@ -13,21 +13,13 @@ namespace DartSimulator
 	public class MainViewModel : ViewModelBase
 	{
 		#region members
-		private double average = 0.0;
-		private double dartAverage = 0.0;
 		private RelayCommand startCommand = null;
-		private int bestLeg = 0;
-		private int worstLeg = 0;
-		private int hundrets = 0;
-		private int hundretFourties = 0;
-		private int hundretEighties = 0;
 		private int amountLegs = 10000;
 		private double singleQuote;
 		private double doubleQuote;
 		private double tripleQuote;
 		private Leg selectedLeg = null;
-		private ObservableCollection<Leg> legs = null;
-		private string simulatedDoubleQuote = "";
+		private Result result;
 		private readonly ISimulationController controller;
 		#endregion
 
@@ -35,6 +27,7 @@ namespace DartSimulator
 		public MainViewModel(ISimulationController controller)
 		{
 			this.controller = controller;
+			this.result = new Result();
 		}
 		#endregion
 
@@ -43,11 +36,11 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.average;
+				return this.result.Average;
 			}
 			set
 			{
-				this.average = value;
+				this.result.Average = value;
 				OnPropertyChanged("Average");
 			}
 		}
@@ -55,11 +48,11 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.dartAverage;
+				return this.result.DartAverage;
 			}
 			set
 			{
-				this.dartAverage = value;
+				this.result.DartAverage = value;
 				OnPropertyChanged("DartAverage");
 			}
 		}
@@ -82,11 +75,11 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.bestLeg;
+				return this.result.BestLeg;
 			}
 			set
 			{
-				this.bestLeg = value;
+				this.result.BestLeg = value;
 				OnPropertyChanged("BestLeg");
 			}
 		}
@@ -94,11 +87,11 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.worstLeg;
+				return this.result.WorstLeg;
 			}
 			set
 			{
-				this.worstLeg = value;
+				this.result.WorstLeg = value;
 				OnPropertyChanged("WorstLeg");
 			}
 		}
@@ -106,11 +99,11 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.hundrets;
+				return this.result.Hundrets;
 			}
 			set
 			{
-				this.hundrets = value;
+				this.result.Hundrets = value;
 				OnPropertyChanged("Hundrets");
 			}
 		}
@@ -118,11 +111,11 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.hundretFourties;
+				return this.result.HundretFourties;
 			}
 			set
 			{
-				this.hundretFourties = value;
+				this.result.HundretFourties = value;
 				OnPropertyChanged("HundretFourties");
 			}
 		}
@@ -130,11 +123,11 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.hundretEighties;
+				return this.result.HundretEighties;
 			}
 			set
 			{
-				this.hundretEighties = value;
+				this.result.HundretEighties = value;
 				OnPropertyChanged("HundretEighties");
 			}
 		}
@@ -214,11 +207,11 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.legs;
+				return this.result.Legs;
 			}
 			set
 			{
-				this.legs = value;
+				this.result.Legs = value;
 				OnPropertyChanged("Legs");
 			}
 		}
@@ -226,11 +219,11 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.simulatedDoubleQuote;
+				return $"{this.result.DoubleQuote:0.##}"+"%";
 			}
 			set
 			{
-				this.simulatedDoubleQuote = value;
+				//this.result.DoubleQuote = value;
 				OnPropertyChanged("SimulatedDoubleQuote");
 			}
 		}
@@ -239,7 +232,7 @@ namespace DartSimulator
 		#region private methods
 		private void Start()
 		{
-			this.controller.StartSimulation();
+			this.result = this.controller.StartSimulation();
 		}
 		private bool CanStart()
 		{

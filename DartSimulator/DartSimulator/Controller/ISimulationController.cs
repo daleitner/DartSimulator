@@ -8,6 +8,6 @@ namespace DartSimulator.Controller
 {
 	public interface ISimulationController
 	{
-		void StartSimulation();
+		Result StartSimulation();
 	}
 }

@@ -82,6 +82,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Extensions\PrettyPrintExtension.cs" />
     <Compile Include="GuiTests.cs" />
     <Compile Include="DartBoardTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
