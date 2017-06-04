@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,12 +37,17 @@ namespace DartSimulatorTests
 		[TestMethod]
 		public void WhenStartSimulation_ThenAllPropertiesShouldBeFilled()
 		{
+			var leg = new Leg
+			{
+				Runden = new ObservableCollection<Round>()
+			};
 			var result = new Result
 			{
 				Average = 50.5,
 				BestLeg = 18,
 				DartAverage = 27,
-				DoubleQuote = 25.2,
+				Hits = 7,
+				Tries=30,
 				Hundrets = 7,
 				HundretFourties = 3,
 				HundretEighties = 1,

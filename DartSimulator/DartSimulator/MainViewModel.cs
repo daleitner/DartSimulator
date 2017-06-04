@@ -195,7 +195,7 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.SelectedLeg.Runden;
+				return this.SelectedLeg?.Runden;
 			}
 			set
 			{
@@ -219,7 +219,7 @@ namespace DartSimulator
 		{
 			get
 			{
-				return $"{this.result.DoubleQuote:0.##}"+"%";
+				return $"{this.result.DoubleQuote:0.##}"+"% (" + this.result.Hits + "/" + this.result.Tries + ")";
 			}
 			set
 			{

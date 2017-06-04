@@ -57,7 +57,7 @@ namespace DartSimulator
 			this.Legs = new ObservableCollection<Leg>();
 		}
 		public ObservableCollection<Leg> Legs { get; set; }
-		public double DoubleQuote { get; set; }
+		public double DoubleQuote => this.Tries == 0 ? 0 : this.Hits/this.Tries * 100;
 		public int HundretEighties { get; set; }
 		public int HundretFourties { get; set; }
 		public int Hundrets { get; set; }
@@ -65,5 +65,7 @@ namespace DartSimulator
 		public int BestLeg { get; set; }
 		public double DartAverage { get; set; }
 		public double Average { get; set; }
+		public int Hits { get; set; }
+		public int Tries { get; set; }
 	}
 }

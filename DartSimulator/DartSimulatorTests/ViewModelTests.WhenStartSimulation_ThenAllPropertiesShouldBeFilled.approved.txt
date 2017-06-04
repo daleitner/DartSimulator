@@ -1,1 +1,10 @@
-﻿ 
+﻿Anzahl Legs: 7
+SelectedLeg: 
+3-Dart-Average: 50,5
+Doppelquote: 0% (7/30)
+Best Leg: 18
+Worst Leg: 36
+Dart-Average: 27
+100er: 7
+140er: 3
+180er: 1
