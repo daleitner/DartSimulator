@@ -44,18 +44,8 @@ namespace DartSimulator
 				OnPropertyChanged("Average");
 			}
 		}
-		public double DartAverage
-		{
-			get
-			{
-				return this.result.DartAverage;
-			}
-			set
-			{
-				this.result.DartAverage = value;
-				OnPropertyChanged("DartAverage");
-			}
-		}
+		public double DartAverage => this.result.DartAverage;
+
 		public ICommand StartCommand
 		{
 			get
@@ -71,66 +61,16 @@ namespace DartSimulator
 			}
 		}
 
-		public int BestLeg
-		{
-			get
-			{
-				return this.result.BestLeg;
-			}
-			set
-			{
-				this.result.BestLeg = value;
-				OnPropertyChanged("BestLeg");
-			}
-		}
-		public int WorstLeg
-		{
-			get
-			{
-				return this.result.WorstLeg;
-			}
-			set
-			{
-				this.result.WorstLeg = value;
-				OnPropertyChanged("WorstLeg");
-			}
-		}
-		public int Hundrets
-		{
-			get
-			{
-				return this.result.Hundrets;
-			}
-			set
-			{
-				this.result.Hundrets = value;
-				OnPropertyChanged("Hundrets");
-			}
-		}
-		public int HundretFourties
-		{
-			get
-			{
-				return this.result.HundretFourties;
-			}
-			set
-			{
-				this.result.HundretFourties = value;
-				OnPropertyChanged("HundretFourties");
-			}
-		}
-		public int HundretEighties
-		{
-			get
-			{
-				return this.result.HundretEighties;
-			}
-			set
-			{
-				this.result.HundretEighties = value;
-				OnPropertyChanged("HundretEighties");
-			}
-		}
+		public int BestLeg => this.result.BestLeg;
+
+		public int WorstLeg => this.result.WorstLeg;
+
+		public int Hundrets => this.result.Hundrets;
+
+		public int HundretFourties => this.result.HundretFourties;
+
+		public int HundretEighties => this.result.HundretEighties;
+
 		public int AmountLegs
 		{
 			get
@@ -191,7 +131,7 @@ namespace DartSimulator
 				OnPropertyChanged("SelectedLeg");
 			}
 		}
-		public ObservableCollection<string> Runden
+		public List<Round> Runden
 		{
 			get
 			{
@@ -203,7 +143,7 @@ namespace DartSimulator
 				OnPropertyChanged("Runden");
 			}
 		}
-		public ObservableCollection<Leg> Legs
+		public List<Leg> Legs
 		{
 			get
 			{

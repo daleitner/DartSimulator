@@ -85,7 +85,10 @@
     <Compile Include="Extensions\PrettyPrintExtension.cs" />
     <Compile Include="GuiTests.cs" />
     <Compile Include="DartBoardTests.cs" />
+    <Compile Include="LegTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultTests.cs" />
+    <Compile Include="RoundTests.cs" />
     <Compile Include="ViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>

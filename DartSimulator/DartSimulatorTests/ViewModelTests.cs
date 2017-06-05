@@ -37,21 +37,36 @@ namespace DartSimulatorTests
 		[TestMethod]
 		public void WhenStartSimulation_ThenAllPropertiesShouldBeFilled()
 		{
-			var leg = new Leg
+			var dartBoard = DartBoard.GetInstance();
+			var twenty = dartBoard.GetSingleOutField(20);
+			var ttwenty = dartBoard.GetTripleField(60);
+			var leg1 = new Leg
 			{
-				Runden = new ObservableCollection<Round>()
+				Runden = new List<Round>
+				{
+					new Round {Dart1 = twenty, Dart2 = ttwenty, Dart3 = twenty},
+					new Round {Dart1 = ttwenty, Dart2 = ttwenty, Dart3 = ttwenty},
+					new Round {Dart1 = twenty, Dart2 = ttwenty, Dart3 = dartBoard.GetTripleField(57)},
+					new Round {Dart1 = ttwenty, Dart2 = dartBoard.GetOutside(), Dart3 = dartBoard.GetDoubleField(24)}
+				}
+			};
+
+			var leg2 = new Leg
+			{
+				Runden = new List<Round>
+				{
+					new Round {Dart1 = twenty, Dart2 = ttwenty, Dart3 = ttwenty},
+					new Round {Dart1 = twenty, Dart2 = twenty, Dart3 = twenty},
+					new Round {Dart1 = twenty, Dart2 = twenty, Dart3 = twenty},
+					new Round {Dart1 = twenty, Dart2 = twenty, Dart3 = twenty},
+					new Round {Dart1 = twenty, Dart2 = twenty, Dart3 = twenty},
+					new Round {Dart1 = twenty, Dart2 = twenty, Dart3 = twenty},
+					new Round {Dart1 = dartBoard.GetSingleBull(), Dart2 = dartBoard.GetOutside(), Dart3 = dartBoard.GetDoubleField(36)}
+				}
 			};
 			var result = new Result
 			{
-				Average = 50.5,
-				BestLeg = 18,
-				DartAverage = 27,
-				Hits = 7,
-				Tries=30,
-				Hundrets = 7,
-				HundretFourties = 3,
-				HundretEighties = 1,
-				WorstLeg = 36
+				Legs = new List<Leg> { leg1, leg2 }
 			};
 			this.controllerMock.Setup(x => x.StartSimulation()).Returns(result);
 			var viewModel = new MainViewModel(this.controllerMock.Object);

@@ -214,3 +214,6 @@ ModelManifest.xml
 # Received Files from ApprovalTests
 *.received.txt
 *.received.png
+
+# Bak Files from Winmerge
+*.bak

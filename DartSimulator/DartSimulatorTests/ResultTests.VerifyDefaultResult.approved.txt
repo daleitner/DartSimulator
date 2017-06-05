@@ -1,0 +1,9 @@
+﻿Legs (Count=0):
+3-Dart-Average: 0
+Doppelquote: 0
+Best Leg: 0
+Worst Leg: 0
+Dart-Average: 0
+100er: 0
+140er: 0
+180er: 0

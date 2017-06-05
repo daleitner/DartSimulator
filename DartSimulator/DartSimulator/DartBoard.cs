@@ -101,7 +101,7 @@ namespace DartSimulator
 			}
 		}
 
-		private Field GetOutside()
+		public Field GetOutside()
 		{
 			return this.Fields.First(x => x.Type == FieldEnum.Outside);
 		}
