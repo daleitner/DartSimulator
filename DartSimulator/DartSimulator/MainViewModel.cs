@@ -32,18 +32,7 @@ namespace DartSimulator
 		#endregion
 
 		#region properties
-		public double Average
-		{
-			get
-			{
-				return this.result.Average;
-			}
-			set
-			{
-				this.result.Average = value;
-				OnPropertyChanged("Average");
-			}
-		}
+		public double Average => this.result.Average;
 		public double DartAverage => this.result.DartAverage;
 
 		public ICommand StartCommand
@@ -173,6 +162,7 @@ namespace DartSimulator
 		private void Start()
 		{
 			this.result = this.controller.StartSimulation();
+			this.SelectedLeg = this.Legs.FirstOrDefault();
 		}
 		private bool CanStart()
 		{

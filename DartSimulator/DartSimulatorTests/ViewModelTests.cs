@@ -48,7 +48,9 @@ namespace DartSimulatorTests
 					new Round {Dart1 = ttwenty, Dart2 = ttwenty, Dart3 = ttwenty},
 					new Round {Dart1 = twenty, Dart2 = ttwenty, Dart3 = dartBoard.GetTripleField(57)},
 					new Round {Dart1 = ttwenty, Dart2 = dartBoard.GetOutside(), Dart3 = dartBoard.GetDoubleField(24)}
-				}
+				},
+				Index = 1,
+				Tries = 2
 			};
 
 			var leg2 = new Leg
@@ -62,7 +64,9 @@ namespace DartSimulatorTests
 					new Round {Dart1 = twenty, Dart2 = twenty, Dart3 = twenty},
 					new Round {Dart1 = twenty, Dart2 = twenty, Dart3 = twenty},
 					new Round {Dart1 = dartBoard.GetSingleBull(), Dart2 = dartBoard.GetOutside(), Dart3 = dartBoard.GetDoubleField(36)}
-				}
+				},
+				Index = 2,
+				Tries = 2
 			};
 			var result = new Result
 			{

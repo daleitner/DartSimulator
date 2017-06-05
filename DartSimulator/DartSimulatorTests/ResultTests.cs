@@ -343,5 +343,95 @@ namespace DartSimulatorTests
 
 			Approvals.Verify("Dart Average= " + result.DartAverage);
 		}
+
+		[TestMethod]
+		public void WhenThrowFiveHundrets_ThenVerifyAverage()
+		{
+			var dartBoard = DartBoard.GetInstance();
+			var twenty = dartBoard.GetSingleOutField(20);
+			var ttwenty = dartBoard.GetTripleField(60);
+			var one = dartBoard.GetSingleOutField(1);
+			var dtwenty = dartBoard.GetDoubleField(40);
+			var outside = dartBoard.GetOutside();
+			var leg = new Leg
+			{
+				Runden = new List<Round>
+				{
+					new Round {Dart1 = ttwenty, Dart2 = twenty, Dart3 = twenty},
+					new Round {Dart1 = ttwenty, Dart2 = twenty, Dart3 = twenty},
+					new Round {Dart1 = ttwenty, Dart2 = twenty, Dart3 = twenty},
+					new Round {Dart1 = ttwenty, Dart2 = twenty, Dart3 = twenty},
+					new Round {Dart1 = ttwenty, Dart2 = one, Dart3 = dtwenty}
+				}
+			};
+
+			var leg2 = new Leg
+			{
+				Runden = new List<Round>
+				{
+					new Round {Dart1 = ttwenty, Dart2 = twenty, Dart3 = twenty},
+					new Round {Dart1 = ttwenty, Dart2 = twenty, Dart3 = twenty},
+					new Round {Dart1 = ttwenty, Dart2 = twenty, Dart3 = twenty},
+					new Round {Dart1 = ttwenty, Dart2 = twenty, Dart3 = twenty},
+					new Round {Dart1 = ttwenty, Dart2 = one, Dart3 = outside},
+					new Round {Dart1 = dtwenty}
+				}
+			};
+
+			var result = new Result
+			{
+				Legs = new List<Leg> { leg, leg2 }
+			};
+
+			Approvals.Verify("3 Dart Average = " + result.Average);
+		}
+
+		[TestMethod]
+		public void WhenFiveLegs_ThenHitsShouldBeFive()
+		{
+			var result = new Result
+			{
+				Legs = new List<Leg>
+				{
+					new Leg(),
+					new Leg(),
+					new Leg(),
+					new Leg(),
+					new Leg()
+				}
+			};
+
+			Approvals.Verify("Hits = " + result.Hits);
+		}
+
+		[TestMethod]
+		public void WhenTwoLegsWith5Tries_ThenTriesShouldBeTen()
+		{
+			var result = new Result
+			{
+				Legs = new List<Leg>
+				{
+					new Leg {Tries = 5},
+					new Leg {Tries = 5}
+				}
+			};
+
+			Approvals.Verify("Tries = " + result.Tries);
+		}
+
+		[TestMethod]
+		public void WhenHitsTwoAndTriesFour_ThenDoubleQuoteShouldBeFifty()
+		{
+			var result = new Result
+			{
+				Legs = new List<Leg>
+				{
+					new Leg {Tries = 2},
+					new Leg {Tries = 2}
+				}
+			};
+
+			Approvals.Verify("DoubleQuote = " + result.DoubleQuote + "%");
+		}
 	}
 }

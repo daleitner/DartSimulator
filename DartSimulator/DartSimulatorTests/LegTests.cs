@@ -79,5 +79,32 @@ namespace DartSimulatorTests
 
 			Approvals.Verify("Anzahl Darts: " + leg.AmountDarts);
 		}
+
+		[TestMethod]
+		public void DefaultLegShouldHaveZeroPoints()
+		{
+			var leg = new Leg();
+			Approvals.Verify("Points = " + leg.Points);
+		}
+
+		[TestMethod]
+		public void WhenFinishedALeg_ThenPointsShouldBeFivehundretOne()
+		{
+			var dartBoard = DartBoard.GetInstance();
+			var ttwenty = dartBoard.GetTripleField(60);
+			var one = dartBoard.GetSingleOutField(1);
+			var dtwenty = dartBoard.GetDoubleField(40);
+			var leg = new Leg
+			{
+				Runden = new List<Round>
+				{
+					new Round {Dart1 = ttwenty, Dart2 = ttwenty, Dart3 = ttwenty},
+					new Round {Dart1 = ttwenty, Dart2 = ttwenty, Dart3 = ttwenty},
+					new Round {Dart1 = ttwenty, Dart2 = one, Dart3 = dtwenty},
+					new Round {Dart1 = dtwenty}
+				}
+			};
+			Approvals.Verify("Points = " + leg.Points);
+		}
 	}
 }

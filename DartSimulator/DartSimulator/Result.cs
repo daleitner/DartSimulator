@@ -64,9 +64,9 @@ namespace DartSimulator
 		public int WorstLeg => GetWorstLeg();
 		public int BestLeg => GetBestLeg();
 		public double DartAverage => GetDartAverage();
-		public double Average { get; set; }
-		public int Hits { get; set; }
-		public int Tries { get; set; }
+		public double Average => GetAverage();
+		public int Hits => this.Legs.Count;
+		public int Tries => GetTries();
 
 		private int GetHundretEighties()
 		{
@@ -88,7 +88,7 @@ namespace DartSimulator
 
 		private double CalculateDoubleQuote()
 		{
-			return this.Tries == 0 ? 0 : this.Hits / this.Tries * 100;
+			return this.Tries == 0 ? 0 : (double)this.Hits / this.Tries * 100;
 		}
 
 		private int GetWorstLeg()
@@ -107,7 +107,25 @@ namespace DartSimulator
 
 		private double GetDartAverage()
 		{
+			if (this.Legs.Count == 0)
+				return 0.0;
 			return this.Legs.Select(x => x.AmountDarts).Average();
+		}
+
+		private double GetAverage()
+		{
+			var points = this.Legs.Select(x => x.Points).Sum();
+			var darts = this.Legs.Select(x => x.AmountDarts).Sum();
+			if (darts == 0)
+				return 0.0;
+			return Math.Round((double)points/darts*3, 2);
+		}
+
+		private int GetTries()
+		{
+			if (this.Legs.Count == 0)
+				return 0;
+			return this.Legs.Select(x => x.Tries).Sum();
 		}
 
 		public override string ToString()
@@ -126,6 +144,8 @@ namespace DartSimulator
 			ret += "\n100er: " + this.Hundrets;
 			ret += "\n140er: " + this.HundretFourties;
 			ret += "\n180er: " + this.HundretEighties;
+			ret += "\nHits: " + this.Hits;
+			ret += "\nTries: " + this.Tries;
 			return ret;
 		}
 	}
