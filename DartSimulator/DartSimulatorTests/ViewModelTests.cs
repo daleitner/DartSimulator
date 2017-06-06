@@ -18,7 +18,13 @@ namespace DartSimulatorTests
 	[UseReporter(typeof(DiffReporter))]
 	public class ViewModelTests
 	{
-		private readonly Mock<ISimulationController> controllerMock = new Mock<ISimulationController>();
+		private Mock<ISimulationController> controllerMock;
+
+		[TestInitialize]
+		public void Setup()
+		{
+			this.controllerMock = new Mock<ISimulationController>();
+		}
 		[TestMethod]
 		public void WhenCreatingNewViewModel_LegsShouldBeTenThousand()
 		{
@@ -31,7 +37,7 @@ namespace DartSimulatorTests
 		{
 			var viewModel = new MainViewModel(this.controllerMock.Object);
 			viewModel.StartCommand.Execute(null);
-			this.controllerMock.Verify(x => x.StartSimulation(), Times.Once, "Start Simulation was not triggered");
+			this.controllerMock.Verify(x => x.StartSimulation(It.IsAny<int>()), Times.Once, "Start Simulation was not triggered");
 		}
 
 		[TestMethod]
@@ -72,7 +78,7 @@ namespace DartSimulatorTests
 			{
 				Legs = new List<Leg> { leg1, leg2 }
 			};
-			this.controllerMock.Setup(x => x.StartSimulation()).Returns(result);
+			this.controllerMock.Setup(x => x.StartSimulation(It.IsAny<int>())).Returns(result);
 			var viewModel = new MainViewModel(this.controllerMock.Object);
 			viewModel.StartCommand.Execute(null);
 			Approvals.Verify(GetResultProperties(viewModel));

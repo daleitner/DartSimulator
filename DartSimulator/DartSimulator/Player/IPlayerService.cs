@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DartSimulator.Controller
+namespace DartSimulator.Player
 {
-	public interface ISimulationController
+	public interface IPlayerService
 	{
-		Result StartSimulation(int legs);
+		Leg PlayLeg();
 	}
 }

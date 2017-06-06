@@ -18,6 +18,16 @@ namespace DartSimulator
 		private double singleQuote;
 		private double doubleQuote;
 		private double tripleQuote;
+		private double average;
+		private double dartAverage;
+		private int bestLeg;
+		private int worstLeg;
+		private int hundrets;
+		private int hundretFourties;
+		private int hundretEighties;
+		private List<Leg> legs;
+		private List<Round> runden; 
+		private string simulatedDoubleQuote; 
 		private Leg selectedLeg = null;
 		private Result result;
 		private readonly ISimulationController controller;
@@ -27,13 +37,35 @@ namespace DartSimulator
 		public MainViewModel(ISimulationController controller)
 		{
 			this.controller = controller;
+			this.simulatedDoubleQuote = "0% (0/0)";
 			this.result = new Result();
 		}
 		#endregion
 
 		#region properties
-		public double Average => this.result.Average;
-		public double DartAverage => this.result.DartAverage;
+
+		public double Average
+		{
+			get
+			{
+				return this.average; 
+			}
+			set
+			{
+				this.average = value;
+				OnPropertyChanged(nameof(this.Average));
+			}
+		}
+
+		public double DartAverage
+		{
+			get { return this.dartAverage; }
+			set
+			{
+				this.dartAverage = value;
+				OnPropertyChanged(nameof(this.DartAverage));
+			}
+		}
 
 		public ICommand StartCommand
 		{
@@ -50,15 +82,55 @@ namespace DartSimulator
 			}
 		}
 
-		public int BestLeg => this.result.BestLeg;
+		public int BestLeg
+		{
+			get { return this.bestLeg; }
+			set
+			{
+				this.bestLeg = value;
+				OnPropertyChanged(nameof(this.BestLeg));
+			}
+		}
 
-		public int WorstLeg => this.result.WorstLeg;
+		public int WorstLeg
+		{
+			get { return this.worstLeg; }
+			set
+			{
+				this.worstLeg = value;
+				OnPropertyChanged(nameof(this.WorstLeg));
+			}
+		}
 
-		public int Hundrets => this.result.Hundrets;
+		public int Hundrets
+		{
+			get { return this.hundrets; }
+			set
+			{
+				this.hundrets = value;
+				OnPropertyChanged(nameof(this.Hundrets));
+			}
+		}
 
-		public int HundretFourties => this.result.HundretFourties;
+		public int HundretFourties
+		{
+			get { return this.hundretFourties; }
+			set
+			{
+				this.hundretFourties = value;
+				OnPropertyChanged(nameof(this.HundretFourties));
+			}
+		}
 
-		public int HundretEighties => this.result.HundretEighties;
+		public int HundretEighties
+		{
+			get { return this.hundretEighties; }
+			set
+			{
+				this.hundretEighties = value;
+				OnPropertyChanged(nameof(this.HundretEighties));
+			}
+		}
 
 		public int AmountLegs
 		{
@@ -117,6 +189,7 @@ namespace DartSimulator
 			set
 			{
 				this.selectedLeg = value;
+				this.Runden = new List<Round>(this.selectedLeg.Runden);
 				OnPropertyChanged("SelectedLeg");
 			}
 		}
@@ -124,36 +197,33 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.SelectedLeg?.Runden;
+				return this.runden;
 			}
 			set
 			{
-				this.SelectedLeg.Runden = value;
-				OnPropertyChanged("Runden");
+				this.runden = value;
+				OnPropertyChanged(nameof(this.Runden));
 			}
 		}
 		public List<Leg> Legs
 		{
 			get
 			{
-				return this.result.Legs;
+				return this.legs;
 			}
 			set
 			{
-				this.result.Legs = value;
-				OnPropertyChanged("Legs");
+				this.legs = value;
+				OnPropertyChanged(nameof(this.Legs));
 			}
 		}
 		public string SimulatedDoubleQuote
 		{
-			get
-			{
-				return $"{this.result.DoubleQuote:0.##}"+"% (" + this.result.Hits + "/" + this.result.Tries + ")";
-			}
+			get { return this.simulatedDoubleQuote; }
 			set
 			{
-				//this.result.DoubleQuote = value;
-				OnPropertyChanged("SimulatedDoubleQuote");
+				this.simulatedDoubleQuote = value;
+				OnPropertyChanged(nameof(this.SimulatedDoubleQuote));
 			}
 		}
 		#endregion
@@ -161,12 +231,26 @@ namespace DartSimulator
 		#region private methods
 		private void Start()
 		{
-			this.result = this.controller.StartSimulation();
+			this.result = this.controller.StartSimulation(this.AmountLegs);
+			Refresh();
 			this.SelectedLeg = this.Legs.FirstOrDefault();
 		}
 		private bool CanStart()
 		{
 			return this.SingleQuote > 0 && this.DoubleQuote > 0 && this.TripleQuote > 0;
+		}
+
+		private void Refresh()
+		{
+			this.Average = this.result.Average;
+			this.SimulatedDoubleQuote = $"{this.result.DoubleQuote:0.##}" + "% (" + this.result.Hits + "/" + this.result.Tries + ")";
+			this.BestLeg = this.result.BestLeg;
+			this.WorstLeg = this.result.WorstLeg;
+			this.HundretEighties = this.result.HundretEighties;
+			this.HundretFourties = this.result.HundretFourties;
+			this.Hundrets = this.result.Hundrets;
+			this.DartAverage = this.result.DartAverage;
+			this.Legs = new List<Leg>(this.result.Legs);
 		}
 		#endregion
 

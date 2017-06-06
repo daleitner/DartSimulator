@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ApprovalTests;
 using ApprovalTests.Reporters;
-using Castle.Components.DictionaryAdapter;
 using DartSimulator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

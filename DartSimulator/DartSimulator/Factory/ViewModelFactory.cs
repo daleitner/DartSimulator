@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DartSimulator.Controller;
+using DartSimulator.Player;
 
 namespace DartSimulator.Factory
 {
 	public class ViewModelFactory : IViewModelFactory
 	{
+		private readonly IPlayerService player;
 		private readonly ISimulationController controller;
 		public ViewModelFactory()
 		{
-			this.controller = new SimulationController();
+			this.player = new PlayerService();
+			this.controller = new SimulationController(player);
 		}
 		public MainViewModel CreateMainViewModel()
 		{
