@@ -9,5 +9,8 @@ namespace DartSimulator.Player
 	public interface IPlayerService
 	{
 		Leg PlayLeg();
+		Round GetRound();
+		Round GetNoScore(int triesToDouble);
+		Field ValidateTarget(int leftScore, int leftDarts);
 	}
 }

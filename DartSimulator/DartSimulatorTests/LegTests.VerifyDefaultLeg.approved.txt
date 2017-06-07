@@ -1,0 +1,2 @@
+﻿Points = 0
+Tries = 0

@@ -39,14 +39,15 @@
 			<Rectangle Height="2" VerticalAlignment="Bottom" Fill="Black"></Rectangle>
 		</Grid>
 		<StackPanel Grid.Row="2" Orientation="Horizontal">
-			<StackPanel Orientation="Vertical">
+			<Grid>
 				<Label Content="Legs:"></Label>
-				<ListBox Width="100" ItemsSource="{Binding Path=Legs}" SelectedItem="{Binding Path=SelectedLeg}" VerticalAlignment="Stretch" Margin="5"></ListBox>
-			</StackPanel>
-			<StackPanel Orientation="Vertical">
+				<ListBox ItemsSource="{Binding Path=Legs}" SelectedItem="{Binding Path=SelectedLeg}" VerticalAlignment="Top" Margin="5,30,5,5" Height="180" Width="200"></ListBox>
+
+			</Grid>
+			<Grid>
 				<Label Content="Runden:"></Label>
-				<ListBox Width="100" ItemsSource="{Binding Path=Runden}" VerticalAlignment="Stretch" Margin="5"></ListBox>
-			</StackPanel>
+				<ListBox Width="100" Height="180" ItemsSource="{Binding Path=Runden}" VerticalAlignment="Stretch" Margin="5,30,5,5"></ListBox>
+			</Grid>
 			<StackPanel Orientation="Vertical" Margin="5,5,0,0">
 				<StackPanel Orientation="Horizontal">
 					<Label Content="3 Dart Average:" Width="90"></Label>

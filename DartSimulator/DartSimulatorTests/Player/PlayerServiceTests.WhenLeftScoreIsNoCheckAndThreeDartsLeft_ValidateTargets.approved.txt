@@ -1,0 +1,12 @@
+﻿Target[0] = left score: 3; 1
+Target[1] = left score: 39; 7
+Target[2] = left score: 49; 17
+Target[3] = left score: 50; 18
+Target[4] = left score: 55; 15
+Target[5] = left score: 65; 25
+Target[6] = left score: 77; T15
+Target[7] = left score: 80; D20
+Target[8] = left score: 87; T17
+Target[9] = left score: 92; T20
+Target[10] = left score: 93; T19
+Target[11] = left score: 99; T20

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using Castle.Components.DictionaryAdapter;
 using DartSimulator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -406,8 +407,8 @@ namespace DartSimulatorTests
 			{
 				Legs = new List<Leg>
 				{
-					new Leg {Tries = 5},
-					new Leg {Tries = 5}
+					new Leg {Runden = new List<Round> {new Round {Tries=3}, new Round {Tries=2} } },
+					new Leg {Runden = new List<Round> {new Round {Tries=3}, new Round {Tries=2} } }
 				}
 			};
 
@@ -421,8 +422,8 @@ namespace DartSimulatorTests
 			{
 				Legs = new List<Leg>
 				{
-					new Leg {Tries = 2},
-					new Leg {Tries = 2}
+					new Leg {Runden = new List<Round> {new Round {Tries=2} } },
+					new Leg {Runden = new List<Round> {new Round {Tries=2} } }
 				}
 			};
 

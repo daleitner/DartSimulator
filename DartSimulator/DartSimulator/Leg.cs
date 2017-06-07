@@ -16,7 +16,7 @@ namespace DartSimulator
 		public List<Round> Runden;
 		public int AmountDarts => GetAmountDarts();
 		public int Points => GetPoints();
-		public int Tries { get; set; }
+		public int Tries => this.Runden.Select(x => x.Tries).Sum();
 		public int Index { get; set; }
 
 		private int GetAmountDarts()

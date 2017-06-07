@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using Castle.Components.DictionaryAdapter;
 using DartSimulator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -81,10 +82,10 @@ namespace DartSimulatorTests
 		}
 
 		[TestMethod]
-		public void DefaultLegShouldHaveZeroPoints()
+		public void VerifyDefaultLeg()
 		{
 			var leg = new Leg();
-			Approvals.Verify("Points = " + leg.Points);
+			Approvals.Verify("Points = " + leg.Points + "\nTries = " + leg.Tries);
 		}
 
 		[TestMethod]
@@ -105,6 +106,20 @@ namespace DartSimulatorTests
 				}
 			};
 			Approvals.Verify("Points = " + leg.Points);
+		}
+
+		[TestMethod]
+		public void WhenLegHasTwoRoundsWithTwoTries_ThenTriesShouldBeFour()
+		{
+			var leg = new Leg
+			{
+				Runden = new List<Round>
+				{
+					new Round {Tries = 2},
+					new Round {Tries = 2}
+				}
+			};
+			Approvals.Verify("Tries: " + leg.Tries);
 		}
 	}
 }

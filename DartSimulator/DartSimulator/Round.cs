@@ -13,6 +13,7 @@ namespace DartSimulator
 		public Field Dart2;
 		public Field Dart3;
 		public int Sum => (this.Dart1?.Value ?? 0) + (this.Dart2?.Value ?? 0) + (this.Dart3?.Value ?? 0);
+		public int Tries { get; set; }
 
 		public override string ToString()
 		{

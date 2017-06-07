@@ -134,7 +134,7 @@ namespace DartSimulator
 
 		public Field GetDoubleField(int i)
 		{
-			return this.Fields.First(x => x.Type == FieldEnum.Double && x.Value == i);
+			return this.Fields.FirstOrDefault(x => x.Type == FieldEnum.Double && x.Value == i);
 		}
 
 		public Field GetTripleField(int i)
