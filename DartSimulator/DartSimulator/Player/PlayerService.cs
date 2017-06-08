@@ -54,18 +54,32 @@ namespace DartSimulator.Player
 
 		private Field GetFieldToCheckNumber(int leftScore, int leftDarts)
 		{
+			var doubleBull = this.dartBoard.GetDoubleBull();
+			if (leftScore == 50 && leftDarts == 1)
+				return doubleBull;
 			var prioList = new List<List<Field>> {new List<Field>(), new List<Field>(), new List<Field>(), new List<Field>()};
-			foreach (var field in this.dartBoard.Fields.Where(x => x.Type == FieldEnum.SingleOut))
+			var typeList = new List<FieldEnum> {FieldEnum.SingleOut, FieldEnum.SingleBull, FieldEnum.Double, FieldEnum.Triple};
+			foreach (var type in typeList)
 			{
-				var doubleField = GetDoubleField(leftScore - field.Value);
-				if (doubleField == null)
-					continue;
-				prioList[GetPrio(doubleField)].Add(field);
-			}
-			foreach (var list in prioList)
-			{
-				if (list.Count > 0)
-					return list.First(x => list.Max(y => y.Value) == x.Value);
+				var selectedFields = this.dartBoard.Fields.Where(x => x.Type == type).ToList();
+				if(type == FieldEnum.Triple)
+					selectedFields.Add(doubleBull);
+				foreach (var field in selectedFields)
+				{
+					var doubleField = GetDoubleField(leftScore - field.Value);
+					if (doubleField == null)
+					{
+						if(leftDarts == 2 && leftScore-field.Value == 50)
+							prioList[GetPrio(doubleBull)].Add(field);
+						continue;
+					}
+					prioList[GetPrio(doubleField)].Add(field);
+				}
+				foreach (var list in prioList)
+				{
+					if (list.Count > 0)
+						return list.First(x => list.Max(y => y.Value) == x.Value);
+				}
 			}
 			return this.dartBoard.GetTripleField(60);
 		}

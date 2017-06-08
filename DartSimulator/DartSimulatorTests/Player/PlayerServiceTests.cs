@@ -88,7 +88,7 @@ namespace DartSimulatorTests.Player
 		[TestMethod]
 		public void WhenLeftScoreIsNoCheckAndThreeDartsLeft_ValidateTargets()
 		{
-			var leftScore = new List<int> { 3, 39, 49, 50, 55, 65, 77, 80, 87, 92, 93, 99 };
+			var leftScore = new List<int> { 3, 39, 49, 50, 55, 61, 65, 66, 77, 80, 82, 87, 90, 92, 93, 99 };
 			var leftDarts = 3;
 			var player = new PlayerService();
 			var targets = new List<string>();
@@ -102,7 +102,7 @@ namespace DartSimulatorTests.Player
 		[TestMethod]
 		public void WhenLeftScoreIsNoCheckAndTwoDartsLeft_ValidateTargets()
 		{
-			var leftScore = new List<int> { 3, 39, 49, 50, 55, 65, 77, 80, 87, 92, 93, 99 };
+			var leftScore = new List<int> { 3, 39, 49, 50, 55, 61, 65, 66, 77, 80, 82, 87, 90, 92, 93, 99 };
 			var leftDarts = 2;
 			var player = new PlayerService();
 			var targets = new List<string>();
@@ -116,7 +116,7 @@ namespace DartSimulatorTests.Player
 		[TestMethod]
 		public void WhenLeftScoreIsNoCheckAndOneDartLeft_ValidateTargets()
 		{
-			var leftScore = new List<int> { 3, 39, 49, 50, 55, 65, 77, 80, 87, 92, 93, 99 };
+			var leftScore = new List<int> { 3, 39, 49, 50, 55, 61, 65, 66, 77, 80, 82, 87, 90, 92, 93, 99 };
 			var leftDarts = 1;
 			var player = new PlayerService();
 			var targets = new List<string>();
