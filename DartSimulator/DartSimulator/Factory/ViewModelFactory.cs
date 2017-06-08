@@ -10,11 +10,12 @@ namespace DartSimulator.Factory
 {
 	public class ViewModelFactory : IViewModelFactory
 	{
-		private readonly IPlayerService player;
 		private readonly ISimulationController controller;
+
 		public ViewModelFactory()
 		{
-			this.player = new PlayerService();
+			IPlayerHand playerHand = new PlayerHand();
+			IPlayerService player = new PlayerService(playerHand);
 			this.controller = new SimulationController(player);
 		}
 		public MainViewModel CreateMainViewModel()

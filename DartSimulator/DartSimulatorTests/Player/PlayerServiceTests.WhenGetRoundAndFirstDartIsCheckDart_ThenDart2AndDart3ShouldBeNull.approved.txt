@@ -1,0 +1,2 @@
+﻿Round: 1. 0	32 (D16)
+Tries To Double: 1

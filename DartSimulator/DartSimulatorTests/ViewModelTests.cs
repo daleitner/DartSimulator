@@ -37,7 +37,7 @@ namespace DartSimulatorTests
 		{
 			var viewModel = new MainViewModel(this.controllerMock.Object);
 			viewModel.StartCommand.Execute(null);
-			this.controllerMock.Verify(x => x.StartSimulation(It.IsAny<int>()), Times.Once, "Start Simulation was not triggered");
+			this.controllerMock.Verify(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), Times.Once, "Start Simulation was not triggered");
 		}
 
 		[TestMethod]
@@ -76,7 +76,7 @@ namespace DartSimulatorTests
 			{
 				Legs = new List<Leg> { leg1, leg2 }
 			};
-			this.controllerMock.Setup(x => x.StartSimulation(It.IsAny<int>())).Returns(result);
+			this.controllerMock.Setup(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Returns(result);
 			var viewModel = new MainViewModel(this.controllerMock.Object);
 			viewModel.StartCommand.Execute(null);
 			Approvals.Verify(GetResultProperties(viewModel));

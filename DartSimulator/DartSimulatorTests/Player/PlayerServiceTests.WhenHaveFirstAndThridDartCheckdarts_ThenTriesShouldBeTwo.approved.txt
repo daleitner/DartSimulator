@@ -1,0 +1,2 @@
+﻿Round: 1. 0	10 (5 1 D2)
+Tries To Double: 2

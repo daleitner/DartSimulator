@@ -31,7 +31,7 @@ namespace DartSimulatorTests.Controller
 			var legs = 10;
 			this.playerMock.Setup(x => x.PlayLeg()).Returns(new Leg());
 			var controller = new SimulationController(this.playerMock.Object);
-			var result = controller.StartSimulation(legs);
+			var result = controller.StartSimulation(legs, 100, 100, 100);
 			Approvals.Verify("Amount of Legs: " + result.Legs.Count);
 		}
 	}

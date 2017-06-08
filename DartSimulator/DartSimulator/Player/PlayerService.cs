@@ -10,25 +10,68 @@ namespace DartSimulator.Player
 	public class PlayerService : IPlayerService
 	{
 		private readonly DartBoard dartBoard = DartBoard.GetInstance();
+		private readonly IPlayerHand playerHand;
+
+		public PlayerService(IPlayerHand playerHand)
+		{
+			this.playerHand = playerHand;
+		}
+
 		public Leg PlayLeg()
 		{
 			var leg = new Leg();
+			var index = 1;
 			while (leg.Points != 501)
 			{
-				var newRound = GetRound();
+				var leftScore = 501-leg.Points;
+				var newRound = GetRound(leftScore, index);
 				leg.Runden.Add(newRound);
+				index++;
 			}
 			return leg;
 		}
 
-		public Round GetRound()
+		public Round GetRound(int leftScoreAtStart, int index)
 		{
-			return new Round {Dart1 = this.dartBoard.GetTripleField(60), Dart2 = this.dartBoard.GetTripleField(57), Dart3 = this.dartBoard.GetDoubleBull()};
+			var round = new Round();
+			var leftScore = leftScoreAtStart;
+			var leftDarts = 3;
+			var tries = 0;
+			var darts = new List<Field> {round.Dart1, round.Dart2, round.Dart3};
+			for (int i = 0; i < darts.Count; i++)
+			{
+				var target = ValidateTarget(leftScore, leftDarts);
+				if (target.Type == FieldEnum.Double || target.Type == FieldEnum.DoubleBull)
+					tries++;
+
+				darts[i] = this.playerHand.ThrowDart(target);
+				leftScore -= darts[i].Value;
+				if (leftScore == 0 && (darts[i].Type == FieldEnum.Double || darts[i].Type == FieldEnum.DoubleBull))
+				{
+					break;
+				}
+				if (leftScore <= 1)
+				{
+					var noScore = GetNoScore();
+					noScore.Tries = tries;
+					noScore.Rest = leftScoreAtStart;
+					noScore.Index = index;
+					return noScore;
+				}
+				leftDarts--;
+			}
+			round.Dart1 = darts[0];
+			round.Dart2 = darts[1];
+			round.Dart3 = darts[2];
+			round.Tries = tries;
+			round.Rest = leftScore;
+			round.Index = index;
+			return round;
 		}
 
-		public Round GetNoScore(int triesToDouble)
+		public Round GetNoScore()
 		{
-			return new Round {Dart1 = this.dartBoard.GetOutside(), Dart2 = this.dartBoard.GetOutside(), Dart3 = this.dartBoard.GetOutside(), Tries = triesToDouble} ;
+			return new Round {Dart1 = this.dartBoard.GetOutside(), Dart2 = this.dartBoard.GetOutside(), Dart3 = this.dartBoard.GetOutside()} ;
 		}
 
 		public Field ValidateTarget(int leftScore, int leftDarts)
@@ -50,6 +93,11 @@ namespace DartSimulator.Player
 			if (doubleField == null)
 				return GetFieldToCheckNumber(leftScore, leftDarts);
 			return this.dartBoard.GetDoubleField(leftScore);
+		}
+
+		public void AssignQuotes(int singleQuote, int doubleQuote, int tripleQuote)
+		{
+			this.playerHand.AssignHitQuotes(singleQuote, doubleQuote, tripleQuote);
 		}
 
 		private Field GetFieldToCheckNumber(int leftScore, int leftDarts)

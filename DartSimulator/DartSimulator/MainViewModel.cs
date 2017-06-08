@@ -15,9 +15,9 @@ namespace DartSimulator
 		#region members
 		private RelayCommand startCommand = null;
 		private int amountLegs = 10000;
-		private double singleQuote;
-		private double doubleQuote;
-		private double tripleQuote;
+		private int singleQuote;
+		private int doubleQuote;
+		private int tripleQuote;
 		private double average;
 		private double dartAverage;
 		private int bestLeg;
@@ -30,6 +30,7 @@ namespace DartSimulator
 		private string simulatedDoubleQuote; 
 		private Leg selectedLeg = null;
 		private Result result;
+		private bool isSortByDarts = false;
 		private readonly ISimulationController controller;
 		#endregion
 
@@ -79,6 +80,27 @@ namespace DartSimulator
 					);
 				}
 				return this.startCommand;
+			}
+		}
+
+		public bool IsSortByDarts
+		{
+			get { return this.isSortByDarts; }
+			set
+			{
+				this.isSortByDarts = value;
+				SortLegs();
+				OnPropertyChanged("IsSortByDarts");
+			}
+		}
+
+		private void SortLegs()
+		{
+			if(this.IsSortByDarts)
+				this.Legs = new List<Leg>(this.Legs.OrderBy(x => x.AmountDarts));
+			else
+			{
+				this.Legs = new List<Leg>(this.Legs.OrderBy(x => x.Index));
 			}
 		}
 
@@ -144,7 +166,7 @@ namespace DartSimulator
 				OnPropertyChanged("AmountLegs");
 			}
 		}
-		public double SingleQuote
+		public int SingleQuote
 		{
 			get
 			{
@@ -156,7 +178,7 @@ namespace DartSimulator
 				OnPropertyChanged("SingleQuote");
 			}
 		}
-		public double DoubleQuote
+		public int DoubleQuote
 		{
 			get
 			{
@@ -168,7 +190,7 @@ namespace DartSimulator
 				OnPropertyChanged("DoubleQuote");
 			}
 		}
-		public double TripleQuote
+		public int TripleQuote
 		{
 			get
 			{
@@ -189,7 +211,7 @@ namespace DartSimulator
 			set
 			{
 				this.selectedLeg = value;
-				this.Runden = new List<Round>(this.selectedLeg.Runden);
+				this.Runden = this.selectedLeg != null ? new List<Round>(this.selectedLeg.Runden) : new List<Round>();
 				OnPropertyChanged("SelectedLeg");
 			}
 		}
@@ -231,7 +253,7 @@ namespace DartSimulator
 		#region private methods
 		private void Start()
 		{
-			this.result = this.controller.StartSimulation(this.AmountLegs);
+			this.result = this.controller.StartSimulation(this.AmountLegs, this.SingleQuote, this.DoubleQuote, this.TripleQuote);
 			Refresh();
 			this.SelectedLeg = this.Legs.FirstOrDefault();
 		}
@@ -250,7 +272,12 @@ namespace DartSimulator
 			this.HundretFourties = this.result.HundretFourties;
 			this.Hundrets = this.result.Hundrets;
 			this.DartAverage = this.result.DartAverage;
-			this.Legs = new List<Leg>(this.result.Legs);
+			if(this.IsSortByDarts)
+				this.Legs = new List<Leg>(this.result.Legs.OrderBy(x => x.AmountDarts));
+			else
+			{
+				this.Legs = new List<Leg>(this.result.Legs);
+			}
 		}
 		#endregion
 

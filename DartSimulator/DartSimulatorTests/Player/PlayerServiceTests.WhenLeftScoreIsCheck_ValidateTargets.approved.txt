@@ -1,0 +1,4 @@
+﻿Target[0] = left score: 2; D1
+Target[1] = left score: 32; D16
+Target[2] = left score: 38; D19
+Target[3] = left score: 40; D20

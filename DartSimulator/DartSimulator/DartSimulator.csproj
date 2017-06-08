@@ -58,7 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Player\IPlayerHand.cs" />
     <Compile Include="Player\IPlayerService.cs" />
+    <Compile Include="Player\PlayerHand.cs" />
     <Compile Include="Player\PlayerService.cs" />
     <Compile Include="Round.cs" />
     <Page Include="MainWindow.xaml">

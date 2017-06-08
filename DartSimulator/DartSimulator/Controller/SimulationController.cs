@@ -15,12 +15,15 @@ namespace DartSimulator.Controller
 		{
 			this.player = playerService;
 		}
-		public Result StartSimulation(int legs)
+		public Result StartSimulation(int legs, int singleQuote, int doubleQuote, int tripleQuote)
 		{
+			this.player.AssignQuotes(singleQuote, doubleQuote, tripleQuote);
 			var result = new Result();
 			for (int i = 0; i < legs; i++)
 			{
-				result.Legs.Add(this.player.PlayLeg());
+				var leg = this.player.PlayLeg();
+				leg.Index = i + 1;
+				result.Legs.Add(leg);
 			}
 			return result;
 		}

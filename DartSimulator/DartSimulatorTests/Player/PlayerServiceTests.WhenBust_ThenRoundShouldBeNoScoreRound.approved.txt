@@ -1,0 +1,2 @@
+﻿Round: 1. 32	0 (0 0 0)
+Tries To Double: 1
