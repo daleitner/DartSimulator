@@ -73,13 +73,13 @@ namespace DartSimulator.Player
 		{
 			if (HitSingle())
 			{
-				if (HitTriple())
+				if (Hit(5))
 					return target.Neighbours.First(x => x.Type == FieldEnum.Triple);
 				return target;
 			}
 
 			var hit = GetNeighbourSegment(target);
-			if (HitTriple())
+			if (Hit(5))
 				return hit.Neighbours.First(x => x.Type == FieldEnum.Triple);
 			return hit;
 		}
