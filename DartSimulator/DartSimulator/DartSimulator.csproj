@@ -58,11 +58,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Player\IPlayerHand.cs" />
-    <Compile Include="Player\IPlayerService.cs" />
-    <Compile Include="Player\PlayerHand.cs" />
-    <Compile Include="Player\PlayerService.cs" />
-    <Compile Include="Round.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -73,11 +68,8 @@
     </Compile>
     <Compile Include="Controller\ISimulationController.cs" />
     <Compile Include="Controller\SimulationController.cs" />
-    <Compile Include="DartBoard.cs" />
     <Compile Include="Factory\IViewModelFactory.cs" />
     <Compile Include="Factory\ViewModelFactory.cs" />
-    <Compile Include="Field.cs" />
-    <Compile Include="Leg.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -119,6 +111,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DartBot\DartBot.csproj">
+      <Project>{227db4a7-24de-4f5e-837b-93cfcdc2ce8c}</Project>
+      <Name>DartBot</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

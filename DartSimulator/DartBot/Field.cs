@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace DartSimulator
+namespace DartBot
 {
 	public enum FieldEnum
 	{
@@ -19,7 +15,6 @@ namespace DartSimulator
 
 	public class Field
 	{
-		//private double doubleHitQuote;
 		public Field(int value, FieldEnum type)
 		{
 			this.Value = value;
@@ -29,15 +24,6 @@ namespace DartSimulator
 		public int Value { get; set; }
 		public FieldEnum Type { get; set; }
 		public List<Field> Neighbours { get; set; }
-		//public double HitQuote => GetHitQuote();
-
-		//private double GetHitQuote()
-		//{
-		//	if (this.doubleHitQuote <= 0.0)
-		//		return 0.0;
-		//	var calculated = this.doubleHitQuote/Measurements.GetFactor(FieldEnum.Double) * Measurements.GetFactor(this.Type);
-		//	return calculated > 95 ? 95 : calculated;
-		//}
 
 		public override string ToString()
 		{

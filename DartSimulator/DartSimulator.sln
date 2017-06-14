@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DartSimulator", "DartSimulator\DartSimulator.csproj", "{13C4D24D-BD33-480E-A0DD-BCE6562FC39E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DartSimulatorTests", "DartSimulatorTests\DartSimulatorTests.csproj", "{8948471F-3B31-4C84-A1E0-76F67B3E6653}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DartBot", "DartBot\DartBot.csproj", "{227DB4A7-24DE-4F5E-837B-93CFCDC2CE8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DartBotTests", "DartBotTests\DartBotTests.csproj", "{84EB94C1-EA6D-45B5-9BC8-20A7331F731C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{8948471F-3B31-4C84-A1E0-76F67B3E6653}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8948471F-3B31-4C84-A1E0-76F67B3E6653}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8948471F-3B31-4C84-A1E0-76F67B3E6653}.Release|Any CPU.Build.0 = Release|Any CPU
+		{227DB4A7-24DE-4F5E-837B-93CFCDC2CE8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{227DB4A7-24DE-4F5E-837B-93CFCDC2CE8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{227DB4A7-24DE-4F5E-837B-93CFCDC2CE8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{227DB4A7-24DE-4F5E-837B-93CFCDC2CE8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84EB94C1-EA6D-45B5-9BC8-20A7331F731C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84EB94C1-EA6D-45B5-9BC8-20A7331F731C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84EB94C1-EA6D-45B5-9BC8-20A7331F731C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84EB94C1-EA6D-45B5-9BC8-20A7331F731C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

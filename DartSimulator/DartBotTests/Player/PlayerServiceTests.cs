@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Reporters;
-using DartSimulator;
-using DartSimulator.Player;
+using DartBot;
+using DartBot.Player;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace DartSimulatorTests.Player
+namespace DartBotTests.Player
 {
 	[TestClass]
 	[UseReporter(typeof(DiffReporter))]

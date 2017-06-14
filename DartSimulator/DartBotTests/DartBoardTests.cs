@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using DartSimulator;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using DartBot;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DartSimulatorTests
+namespace DartBotTests
 {
 	[TestClass]
 	[UseReporter(typeof(DiffReporter))]

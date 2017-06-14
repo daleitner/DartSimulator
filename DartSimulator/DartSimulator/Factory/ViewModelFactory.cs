@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DartBot.Player;
 using DartSimulator.Controller;
-using DartSimulator.Player;
 
 namespace DartSimulator.Factory
 {

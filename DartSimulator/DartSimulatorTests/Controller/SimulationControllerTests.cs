@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ApprovalTests;
+﻿using ApprovalTests;
 using ApprovalTests.Reporters;
-using DartSimulator;
+using DartBot;
+using DartBot.Player;
 using DartSimulator.Controller;
-using DartSimulator.Player;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
