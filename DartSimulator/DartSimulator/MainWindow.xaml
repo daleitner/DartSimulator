@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DartSimulator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="550">
+        Title="MainWindow" Height="600" Width="550">
     <Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="40"></RowDefinition>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="2*"/>
+			<RowDefinition Height="auto"></RowDefinition>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="*"></RowDefinition>
 		</Grid.RowDefinitions>
 		<Label Content="Dart Simulator 501 DO" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"></Label>
 		<Grid Grid.Row="1">
@@ -84,5 +85,45 @@
 				</StackPanel>
 			</StackPanel>
 		</StackPanel>
+		<Grid Grid.Row="3" Margin="10,10,50,10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="40"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="30"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Label Content="{Binding Path=MaxCount}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="40"></Label>
+			<Label Content="{Binding Path=HalfMaxCount}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="40"></Label>
+			<Rectangle Grid.Column="1" Fill="Black" Width="2" HorizontalAlignment="Left"></Rectangle>
+			<Rectangle Grid.Column="1" Fill="Black" Height="2" VerticalAlignment="Bottom"></Rectangle>
+			<ItemsControl Grid.Column="1" ItemsSource="{Binding Path=RoundCounts}" Margin="2,0,0,2" >
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Horizontal"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Rectangle Fill="DeepSkyBlue" Width="27" Height="{Binding Path=Height}" HorizontalAlignment="Center" VerticalAlignment="Bottom" ToolTip="{Binding Path=Count}" Margin="3,0,0,0"></Rectangle>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+			<ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Path=RoundCounts}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Horizontal"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Grid Width="30">
+							<Label Content="{Binding Path=Round}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+						</Grid>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</Grid>
 	</Grid>
 </Window>

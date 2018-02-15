@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using DartBot;
@@ -19,21 +20,29 @@ namespace DartSimulatorTests
 		[TestInitialize]
 		public void Setup()
 		{
-			this.controllerMock = new Mock<ISimulationController>();
+			controllerMock = new Mock<ISimulationController>();
 		}
 		[TestMethod]
 		public void WhenCreatingNewViewModel_LegsShouldBeTenThousand()
 		{
-			var viewModel = new MainViewModel(this.controllerMock.Object);
+			var viewModel = new MainViewModel(controllerMock.Object);
 			viewModel.AmountLegs.ShouldEqual(10000);
+		}
+
+		[TestMethod]
+		public void WhenCreatingNewViewModel_VerifyRoundCounts()
+		{
+			var viewModel = new MainViewModel(controllerMock.Object);
+			controllerMock.Verify(x => x.InitializeRoundCounts(), Times.Once, "RoundCounts wasn't initialized");
 		}
 
 		[TestMethod]
 		public void WhenClickSimulateButton_ThenControllerShouldGetTriggered()
 		{
-			var viewModel = new MainViewModel(this.controllerMock.Object);
+			var viewModel = new MainViewModel(controllerMock.Object);
 			viewModel.StartCommand.Execute(null);
-			this.controllerMock.Verify(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), Times.Once, "Start Simulation was not triggered");
+			controllerMock.Verify(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), Times.Once, "Start Simulation was not triggered");
+			controllerMock.Verify(x => x.FillRoundCounts(It.IsAny<ObservableCollection<RoundCount>>(), It.IsAny<Result>()), Times.Once, "FillRoundCounts was not triggered");
 		}
 
 		[TestMethod]
@@ -72,8 +81,8 @@ namespace DartSimulatorTests
 			{
 				Legs = new List<Leg> { leg1, leg2 }
 			};
-			this.controllerMock.Setup(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Returns(result);
-			var viewModel = new MainViewModel(this.controllerMock.Object);
+			controllerMock.Setup(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Returns(result);
+			var viewModel = new MainViewModel(controllerMock.Object);
 			viewModel.StartCommand.Execute(null);
 			Approvals.Verify(GetResultProperties(viewModel));
 		}

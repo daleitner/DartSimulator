@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Base;
@@ -10,33 +11,37 @@ namespace DartSimulator
 	public class MainViewModel : ViewModelBase
 	{
 		#region members
-		private RelayCommand startCommand = null;
-		private int amountLegs = 10000;
-		private int singleQuote;
-		private int doubleQuote;
-		private int tripleQuote;
-		private double average;
-		private double dartAverage;
-		private int bestLeg;
-		private int worstLeg;
-		private int hundrets;
-		private int hundretFourties;
-		private int hundretEighties;
-		private List<Leg> legs;
-		private List<Round> runden; 
-		private string simulatedDoubleQuote; 
-		private Leg selectedLeg = null;
-		private Result result;
-		private bool isSortByDarts = false;
-		private readonly ISimulationController controller;
+		private RelayCommand _startCommand;
+		private int _amountLegs = 10000;
+		private int _singleQuote;
+		private int _doubleQuote;
+		private int _tripleQuote;
+		private double _average;
+		private double _dartAverage;
+		private int _bestLeg;
+		private int _worstLeg;
+		private int _hundrets;
+		private int _hundretFourties;
+		private int _hundretEighties;
+		private List<Leg> _legs;
+		private List<Round> _runden; 
+		private string _simulatedDoubleQuote; 
+		private Leg _selectedLeg;
+		private Result _result;
+		private bool _isSortByDarts;
+		private int _maxCount;
+		private int _halfMaxCount;
+		private ObservableCollection<RoundCount> _roundCounts;
+		private readonly ISimulationController _controller;
 		#endregion
 
 		#region ctors
 		public MainViewModel(ISimulationController controller)
 		{
-			this.controller = controller;
-			this.simulatedDoubleQuote = "0% (0/0)";
-			this.result = new Result();
+			_controller = controller;
+			_roundCounts = controller.InitializeRoundCounts();
+			_simulatedDoubleQuote = "0% (0/0)";
+			_result = new Result();
 		}
 		#endregion
 
@@ -46,22 +51,22 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.average; 
+				return _average; 
 			}
 			set
 			{
-				this.average = value;
-				OnPropertyChanged(nameof(this.Average));
+				_average = value;
+				OnPropertyChanged(nameof(Average));
 			}
 		}
 
 		public double DartAverage
 		{
-			get { return this.dartAverage; }
+			get { return _dartAverage; }
 			set
 			{
-				this.dartAverage = value;
-				OnPropertyChanged(nameof(this.DartAverage));
+				_dartAverage = value;
+				OnPropertyChanged(nameof(DartAverage));
 			}
 		}
 
@@ -69,23 +74,23 @@ namespace DartSimulator
 		{
 			get
 			{
-				if (this.startCommand == null)
+				if (_startCommand == null)
 				{
-					this.startCommand = new RelayCommand(
+					_startCommand = new RelayCommand(
 						param => Start(),
 						param => CanStart()
 					);
 				}
-				return this.startCommand;
+				return _startCommand;
 			}
 		}
 
 		public bool IsSortByDarts
 		{
-			get { return this.isSortByDarts; }
+			get { return _isSortByDarts; }
 			set
 			{
-				this.isSortByDarts = value;
+				_isSortByDarts = value;
 				SortLegs();
 				OnPropertyChanged("IsSortByDarts");
 			}
@@ -93,61 +98,61 @@ namespace DartSimulator
 
 		private void SortLegs()
 		{
-			if(this.IsSortByDarts)
-				this.Legs = new List<Leg>(this.Legs.OrderBy(x => x.AmountDarts));
+			if(IsSortByDarts)
+				Legs = new List<Leg>(Legs.OrderBy(x => x.AmountDarts));
 			else
 			{
-				this.Legs = new List<Leg>(this.Legs.OrderBy(x => x.Index));
+				Legs = new List<Leg>(Legs.OrderBy(x => x.Index));
 			}
 		}
 
 		public int BestLeg
 		{
-			get { return this.bestLeg; }
+			get { return _bestLeg; }
 			set
 			{
-				this.bestLeg = value;
-				OnPropertyChanged(nameof(this.BestLeg));
+				_bestLeg = value;
+				OnPropertyChanged(nameof(BestLeg));
 			}
 		}
 
 		public int WorstLeg
 		{
-			get { return this.worstLeg; }
+			get { return _worstLeg; }
 			set
 			{
-				this.worstLeg = value;
-				OnPropertyChanged(nameof(this.WorstLeg));
+				_worstLeg = value;
+				OnPropertyChanged(nameof(WorstLeg));
 			}
 		}
 
 		public int Hundrets
 		{
-			get { return this.hundrets; }
+			get { return _hundrets; }
 			set
 			{
-				this.hundrets = value;
-				OnPropertyChanged(nameof(this.Hundrets));
+				_hundrets = value;
+				OnPropertyChanged(nameof(Hundrets));
 			}
 		}
 
 		public int HundretFourties
 		{
-			get { return this.hundretFourties; }
+			get { return _hundretFourties; }
 			set
 			{
-				this.hundretFourties = value;
-				OnPropertyChanged(nameof(this.HundretFourties));
+				_hundretFourties = value;
+				OnPropertyChanged(nameof(HundretFourties));
 			}
 		}
 
 		public int HundretEighties
 		{
-			get { return this.hundretEighties; }
+			get { return _hundretEighties; }
 			set
 			{
-				this.hundretEighties = value;
-				OnPropertyChanged(nameof(this.HundretEighties));
+				_hundretEighties = value;
+				OnPropertyChanged(nameof(HundretEighties));
 			}
 		}
 
@@ -155,11 +160,11 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.amountLegs;
+				return _amountLegs;
 			}
 			set
 			{
-				this.amountLegs = value;
+				_amountLegs = value;
 				OnPropertyChanged("AmountLegs");
 			}
 		}
@@ -167,11 +172,11 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.singleQuote;
+				return _singleQuote;
 			}
 			set
 			{
-				this.singleQuote = value;
+				_singleQuote = value;
 				OnPropertyChanged("SingleQuote");
 			}
 		}
@@ -179,11 +184,11 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.doubleQuote;
+				return _doubleQuote;
 			}
 			set
 			{
-				this.doubleQuote = value;
+				_doubleQuote = value;
 				OnPropertyChanged("DoubleQuote");
 			}
 		}
@@ -191,11 +196,11 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.tripleQuote;
+				return _tripleQuote;
 			}
 			set
 			{
-				this.tripleQuote = value;
+				_tripleQuote = value;
 				OnPropertyChanged("TripleQuote");
 			}
 		}
@@ -203,12 +208,12 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.selectedLeg;
+				return _selectedLeg;
 			}
 			set
 			{
-				this.selectedLeg = value;
-				this.Runden = this.selectedLeg != null ? new List<Round>(this.selectedLeg.Runden) : new List<Round>();
+				_selectedLeg = value;
+				Runden = _selectedLeg != null ? new List<Round>(_selectedLeg.Runden) : new List<Round>();
 				OnPropertyChanged("SelectedLeg");
 			}
 		}
@@ -216,33 +221,66 @@ namespace DartSimulator
 		{
 			get
 			{
-				return this.runden;
+				return _runden;
 			}
 			set
 			{
-				this.runden = value;
-				OnPropertyChanged(nameof(this.Runden));
+				_runden = value;
+				OnPropertyChanged(nameof(Runden));
 			}
 		}
 		public List<Leg> Legs
 		{
 			get
 			{
-				return this.legs;
+				return _legs;
 			}
 			set
 			{
-				this.legs = value;
-				OnPropertyChanged(nameof(this.Legs));
+				_legs = value;
+				OnPropertyChanged(nameof(Legs));
 			}
 		}
 		public string SimulatedDoubleQuote
 		{
-			get { return this.simulatedDoubleQuote; }
+			get { return _simulatedDoubleQuote; }
 			set
 			{
-				this.simulatedDoubleQuote = value;
-				OnPropertyChanged(nameof(this.SimulatedDoubleQuote));
+				_simulatedDoubleQuote = value;
+				OnPropertyChanged(nameof(SimulatedDoubleQuote));
+			}
+		}
+
+		public int MaxCount
+		{
+			get { return _maxCount; }
+			set
+			{
+				_maxCount = value;
+				OnPropertyChanged(nameof(MaxCount));
+			}
+		}
+
+		public int HalfMaxCount
+		{
+			get { return _halfMaxCount; }
+			set
+			{
+				_halfMaxCount = value;
+				OnPropertyChanged(nameof(HalfMaxCount));
+			}
+		}
+
+		public ObservableCollection<RoundCount> RoundCounts
+		{
+			get
+			{
+				return _roundCounts;
+			}
+			set
+			{
+				_roundCounts = value;
+				OnPropertyChanged(nameof(RoundCounts));
 			}
 		}
 		#endregion
@@ -250,31 +288,36 @@ namespace DartSimulator
 		#region private methods
 		private void Start()
 		{
-			this.result = this.controller.StartSimulation(this.AmountLegs, this.SingleQuote, this.DoubleQuote, this.TripleQuote);
+			_result = _controller.StartSimulation(AmountLegs, SingleQuote, DoubleQuote, TripleQuote);
+			RoundCounts = _controller.FillRoundCounts(RoundCounts, _result);
+			
 			Refresh();
-			this.SelectedLeg = this.Legs.FirstOrDefault();
+			SelectedLeg = Legs.FirstOrDefault();
 		}
 		private bool CanStart()
 		{
-			return this.SingleQuote > 0 && this.DoubleQuote > 0 && this.TripleQuote > 0;
+			return SingleQuote > 0 && DoubleQuote > 0 && TripleQuote > 0;
 		}
 
 		private void Refresh()
 		{
-			this.Average = this.result.Average;
-			this.SimulatedDoubleQuote = $"{this.result.DoubleQuote:0.##}" + "% (" + this.result.Hits + "/" + this.result.Tries + ")";
-			this.BestLeg = this.result.BestLeg;
-			this.WorstLeg = this.result.WorstLeg;
-			this.HundretEighties = this.result.HundretEighties;
-			this.HundretFourties = this.result.HundretFourties;
-			this.Hundrets = this.result.Hundrets;
-			this.DartAverage = this.result.DartAverage;
-			if(this.IsSortByDarts)
-				this.Legs = new List<Leg>(this.result.Legs.OrderBy(x => x.AmountDarts));
+			Average = _result.Average;
+			SimulatedDoubleQuote = $"{_result.DoubleQuote:0.##}" + "% (" + _result.Hits + "/" + _result.Tries + ")";
+			BestLeg = _result.BestLeg;
+			WorstLeg = _result.WorstLeg;
+			HundretEighties = _result.HundretEighties;
+			HundretFourties = _result.HundretFourties;
+			Hundrets = _result.Hundrets;
+			DartAverage = _result.DartAverage;
+			if(IsSortByDarts)
+				Legs = new List<Leg>(_result.Legs.OrderBy(x => x.AmountDarts));
 			else
 			{
-				this.Legs = new List<Leg>(this.result.Legs);
+				Legs = new List<Leg>(_result.Legs);
 			}
+
+			MaxCount = RoundCounts.Select(x => x.Count).Max();
+			HalfMaxCount = MaxCount / 2;
 		}
 		#endregion
 

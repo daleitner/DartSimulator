@@ -1,0 +1,14 @@
+﻿RoundCounts[0] = Round: 3, Height: 0, Count: 0
+RoundCounts[1] = Round: 4, Height: 0, Count: 0
+RoundCounts[2] = Round: 5, Height: 0, Count: 0
+RoundCounts[3] = Round: 6, Height: 0, Count: 0
+RoundCounts[4] = Round: 7, Height: 0, Count: 0
+RoundCounts[5] = Round: 8, Height: 0, Count: 0
+RoundCounts[6] = Round: 9, Height: 0, Count: 0
+RoundCounts[7] = Round: 10, Height: 0, Count: 0
+RoundCounts[8] = Round: 11, Height: 0, Count: 0
+RoundCounts[9] = Round: 12, Height: 0, Count: 0
+RoundCounts[10] = Round: 13, Height: 0, Count: 0
+RoundCounts[11] = Round: 14, Height: 0, Count: 0
+RoundCounts[12] = Round: 15, Height: 0, Count: 0
+RoundCounts[13] = Round: >15, Height: 0, Count: 0
