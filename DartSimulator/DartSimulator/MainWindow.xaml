@@ -36,6 +36,7 @@
 					<Label Content="%"></Label>
 				</StackPanel>
 			</StackPanel>
+			<CheckBox Content="Score auf 19" IsChecked="{Binding Score19}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,35"></CheckBox>
 			<Button Content="Simulation Starten" Command="{Binding Path=StartCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,8"></Button>
 			<Rectangle Height="2" VerticalAlignment="Bottom" Fill="Black"></Rectangle>
 		</Grid>

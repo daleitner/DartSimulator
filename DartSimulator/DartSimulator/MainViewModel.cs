@@ -29,6 +29,7 @@ namespace DartSimulator
 		private Leg _selectedLeg;
 		private Result _result;
 		private bool _isSortByDarts;
+		private bool _score19;
 		private int _maxCount;
 		private int _halfMaxCount;
 		private ObservableCollection<RoundCount> _roundCounts;
@@ -283,12 +284,22 @@ namespace DartSimulator
 				OnPropertyChanged(nameof(RoundCounts));
 			}
 		}
+
+		public bool Score19
+		{
+			get { return _score19; }
+			set
+			{
+				_score19 = value;
+				OnPropertyChanged(nameof(Score19));
+			}
+		}
 		#endregion
 
 		#region private methods
 		private void Start()
 		{
-			_result = _controller.StartSimulation(AmountLegs, SingleQuote, DoubleQuote, TripleQuote);
+			_result = _controller.StartSimulation(AmountLegs, SingleQuote, DoubleQuote, TripleQuote, Score19);
 			RoundCounts = _controller.FillRoundCounts(RoundCounts, _result);
 			
 			Refresh();

@@ -83,7 +83,7 @@ namespace DartBot.Player
 					if (leftScore == 101)
 						return this.dartBoard.GetTripleField(51);
 				}
-				return this.dartBoard.GetTripleField(60);
+				return playerHand.Score19 ? dartBoard.GetTripleField(57) : dartBoard.GetTripleField(60);
 			}
 			var doubleField = GetDoubleField(leftScore);
 			if (doubleField == null)
@@ -94,6 +94,11 @@ namespace DartBot.Player
 		public void AssignQuotes(int singleQuote, int doubleQuote, int tripleQuote)
 		{
 			this.playerHand.AssignHitQuotes(singleQuote, doubleQuote, tripleQuote);
+		}
+
+		public void AssignPreferredTarget(bool score19)
+		{
+			playerHand.AssignPreferredTarget(score19);
 		}
 
 		private Field GetFieldToCheckNumber(int leftScore, int leftDarts)

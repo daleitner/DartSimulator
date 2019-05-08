@@ -38,6 +38,13 @@ namespace DartBot.Player
 			this.tripleQuote = tripleQuote;
 		}
 
+		public void AssignPreferredTarget(bool score19)
+		{
+			Score19 = score19;
+		}
+
+		public bool Score19 { get; private set; }
+
 		private Field ThrowTripleDart(Field target)
 		{
 			if (HitTriple())
