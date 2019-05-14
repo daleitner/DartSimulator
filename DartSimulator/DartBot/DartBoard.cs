@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using DartBot.Common;
 
 namespace DartBot
 {
@@ -9,16 +11,20 @@ namespace DartBot
 		private DartBoard()
 		{
 			this.Fields = new List<Field>();
-			this.Fields.Add(new Field(0, FieldEnum.Outside));
+			var bounce = new Field(0, FieldEnum.Outside) {Target = new Point(0, 0)};
+			this.Fields.Add(bounce);
 			for (int i = 1; i <= 20; i++)
 			{
-				this.Fields.Add(new Field(i,FieldEnum.SingleOut));
-				this.Fields.Add(new Field(i, FieldEnum.SingleIn));
-				this.Fields.Add(new Field(i*2, FieldEnum.Double));
-				this.Fields.Add(new Field(i*3, FieldEnum.Triple));
+				this.Fields.Add(new Field(i,FieldEnum.SingleOut){Target = SingleDictionary[i]});
+				this.Fields.Add(new Field(i, FieldEnum.SingleIn) { Target = SingleInDictionary[i] });
+				this.Fields.Add(new Field(i*2, FieldEnum.Double) { Target = DoubleDictionary[i] });
+				this.Fields.Add(new Field(i*3, FieldEnum.Triple) { Target = TripleDictionary[i] });
 			}
-			this.Fields.Add(new Field(25, FieldEnum.SingleBull));
-			this.Fields.Add(new Field(50, FieldEnum.DoubleBull));
+
+			var singleBull = new Field(25, FieldEnum.SingleBull) {Target = new Point(170, 180)};
+			var doubleBull = new Field(50, FieldEnum.DoubleBull) { Target = new Point(170, 170) };
+			this.Fields.Add(singleBull);
+			this.Fields.Add(doubleBull);
 			foreach (var field in this.Fields.Where(x => x.Type == FieldEnum.Double))
 			{
 				field.Neighbours.Add(GetOutside());
@@ -96,6 +102,11 @@ namespace DartBot
 					GetTripleField(order[i]*3).Neighbours.Add(GetTripleField(order[0]*3));
 				}
 			}
+
+			for (int i = 0; i < Fields.Count; i++)
+			{
+				Fields[i].Color = Color.FromArgb(255, 200 - i, 0, 200 - i);
+			}
 		}
 
 		public Field GetOutside()
@@ -138,5 +149,106 @@ namespace DartBot
 		{
 			return this.Fields.First(x => x.Type == FieldEnum.Triple && x.Value == i);
 		}
+
+		public Field GetFieldByColor(Color index)
+		{
+			return Fields.SingleOrDefault(x => x.Color.IsEquivalentTo(index));
+		}
+
+		private static Dictionary<int, Point> SingleDictionary = new Dictionary<int, Point>
+		{
+			{1, new Point(210,40) },
+			{2, new Point(250,280) },
+			{3, new Point(170,300) },
+			{4, new Point(280,90) },
+			{5, new Point(130,40) },
+			{6, new Point(300,170) },
+			{7, new Point(90,280) },
+			{8, new Point(40,210) },
+			{9, new Point(60,90) },
+			{10, new Point(300,210) },
+			{11, new Point(40,170) },
+			{12, new Point(90,60) },
+			{13, new Point(300,130) },
+			{14, new Point(40,130) },
+			{15, new Point(280,250) },
+			{16, new Point(60,250) },
+			{17, new Point(210,300) },
+			{18, new Point(250,60) },
+			{19, new Point(130,300) },
+			{20, new Point(170,35) },
+		};
+
+		private static Dictionary<int, Point> DoubleDictionary = new Dictionary<int, Point>
+		{
+			{1, new Point(221,12) },
+			{2, new Point(267,303) },
+			{3, new Point(170,336) },
+			{4, new Point(304,72) },
+			{5, new Point(121,11) },
+			{6, new Point(336,170) },
+			{7, new Point(72,303) },
+			{8, new Point(13,222) },
+			{9, new Point(37,72) },
+			{10, new Point(327,220) },
+			{11, new Point(4,170) },
+			{12, new Point(72,36) },
+			{13, new Point(327,120) },
+			{14, new Point(13,118) },
+			{15, new Point(304,264) },
+			{16, new Point(35,264) },
+			{17, new Point(221,327) },
+			{18, new Point(267,36) },
+			{19, new Point(119,327) },
+			{20, new Point(170,4) },
+		};
+
+		private static Dictionary<int, Point> TripleDictionary = new Dictionary<int, Point>
+		{
+			{1, new Point(201,72) },
+			{2, new Point(230,252) },
+			{3, new Point(170,273) },
+			{4, new Point(252,109) },
+			{5, new Point(139,72) },
+			{6, new Point(272,170) },
+			{7, new Point(109,252) },
+			{8, new Point(73,202) },
+			{9, new Point(88,108) },
+			{10, new Point(267,201) },
+			{11, new Point(67,170) },
+			{12, new Point(110,86) },
+			{13, new Point(267,137) },
+			{14, new Point(73,137) },
+			{15, new Point(254,228) },
+			{16, new Point(86,229) },
+			{17, new Point(202,267) },
+			{18, new Point(230,87) },
+			{19, new Point(137,266) },
+			{20, new Point(170,67) },
+		};
+
+		private static Dictionary<int, Point> SingleInDictionary = new Dictionary<int, Point>
+		{
+			{1, new Point(193,97) },
+			{2, new Point(217,232) },
+			{3, new Point(170,246) },
+			{4, new Point(232,125) },
+			{5, new Point(148,95) },
+			{6, new Point(245,170) },
+			{7, new Point(120,237) },
+			{8, new Point(100,191) },
+			{9, new Point(108,123) },
+			{10, new Point(241,192) },
+			{11, new Point(92,170) },
+			{12, new Point(125,105) },
+			{13, new Point(240,147) },
+			{14, new Point(98,145) },
+			{15, new Point(232,214) },
+			{16, new Point(106,216) },
+			{17, new Point(195,245) },
+			{18, new Point(216,106) },
+			{19, new Point(145,243) },
+			{20, new Point(170,96) },
+		};
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace DartBot
 {
@@ -24,6 +25,8 @@ namespace DartBot
 		public int Value { get; set; }
 		public FieldEnum Type { get; set; }
 		public List<Field> Neighbours { get; set; }
+		public Point Target { get; set; }
+		public Color Color { get; set; }
 
 		public override string ToString()
 		{
