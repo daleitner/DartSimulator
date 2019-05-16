@@ -59,12 +59,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CanvasUserControl.xaml.cs">
+    <Compile Include="CanvasDialog\CanvasUserControl.xaml.cs">
       <DependentUpon>CanvasUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CanvasDialog\Dart.cs" />
+    <Compile Include="CanvasDialog\TargetWindow.xaml.cs">
+      <DependentUpon>TargetWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CanvasDialog\TargetViewModel.cs" />
     <Compile Include="Common\ColorExtension.cs" />
     <Compile Include="RoundCount.cs" />
-    <Page Include="CanvasUserControl.xaml">
+    <Page Include="CanvasDialog\CanvasUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CanvasDialog\TargetWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

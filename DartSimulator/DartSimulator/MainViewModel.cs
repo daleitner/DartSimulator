@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using Base;
 using DartBot;
+using DartSimulator.CanvasDialog;
 using DartSimulator.Controller;
 
 namespace DartSimulator
@@ -12,6 +13,7 @@ namespace DartSimulator
 	{
 		#region members
 		private RelayCommand _startCommand;
+		private RelayCommand _openCanvasCommand;
 		private int _amountLegs = 10000;
 		private int _singleQuote;
 		private int _doubleQuote;
@@ -333,6 +335,20 @@ namespace DartSimulator
 		#endregion
 
 		#region public methods
+		#endregion
+
+		#region open canvas
+		public ICommand OpenCanvasCommand
+		{
+			get { return _openCanvasCommand ?? (_openCanvasCommand = new RelayCommand(param => OpenCanvas())); }
+		}
+
+		private void OpenCanvas()
+		{
+			var viewModel = new TargetViewModel();
+			var window = new TargetWindow {DataContext = viewModel};
+			window.ShowDialog();
+		}
 		#endregion
 	}
 }
