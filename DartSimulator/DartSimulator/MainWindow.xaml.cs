@@ -17,13 +17,12 @@ namespace DartSimulator
 	{
 		public MainWindow()
 		{
-			InitializeComponent();
-			var factory = new ViewModelFactory();
-			var viewModel = factory.CreateMainViewModel();
-			DataContext = viewModel;
-			var control = new CanvasUserControl();
+			InitializeComponent(); var control = new CanvasUserControl();
 			var bytes = control.GetBytes();
 			ColorDartboard(bytes);
+			var factory = new ViewModelFactory(bytes);
+			var viewModel = factory.CreateMainViewModel();
+			DataContext = viewModel;
 			SaveImage(bytes);
 		}
 

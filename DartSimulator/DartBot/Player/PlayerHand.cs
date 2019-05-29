@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace DartBot.Player
@@ -8,27 +10,85 @@ namespace DartBot.Player
 		private int tripleQuote = 100;
 		private int doubleQuote = 100;
 		private int singleQuote = 100;
+		private double my = 0.0;
+		private double sigma = 0.0;
 		private readonly Random random;
-
-		public PlayerHand()
+		private readonly List<List<Color>> _pixels;
+		public PlayerHand(List<List<Color>> pixels)
 		{
+			_pixels = pixels;
 			this.random = new Random();
 		}
 		public Field ThrowDart(Field target)
 		{
-			switch (target.Type)
+			var distance = GetNormalDistributedRandom();
+			var angle = GetRandomAngle();
+			var quadrant = GetRandomQuadrant();
+
+			var x = Math.Round(Math.Cos(Math.PI * angle / 180.0) * distance, 0);
+			var y = Math.Round(Math.Sin(Math.PI * angle / 180.0) * distance, 0);
+
+			if (quadrant == 1 || quadrant == 2)
+				x = x * -1;
+			if (quadrant == 2 || quadrant == 3)
+				y = y * -1;
+
+			x += target.Target.X;
+			y += target.Target.Y;
+
+			if (x < 0 || x >= _pixels.First().Count || y < 0 || y >= _pixels.Count)
+				return DartBoard.GetInstance().GetOutside();
+			var hit = DartBoard.GetInstance().GetFieldByColor(_pixels[(int) y][(int) x]);
+			var rnddir = random.Next(4);
+			while (hit == null)
 			{
-				case FieldEnum.SingleIn:
-				case FieldEnum.SingleOut:
-					return ThrowSingleDart(target);
-				case FieldEnum.Double: return ThrowDoubleDart(target);
-				case FieldEnum.SingleBull: return ThrowSingleBull(target);
-					
-				case FieldEnum.Triple: return ThrowTripleDart(target);
-				case FieldEnum.DoubleBull: return ThrowDoubleBull(target);
-					
+				if (rnddir == 0)
+					x++;
+				else if (rnddir == 1)
+					x--;
+				else if (rnddir == 2)
+					y++;
+				else
+					y--;
+				if (x < 0 || x >= _pixels.First().Count || y < 0 || y >= _pixels.Count)
+					return DartBoard.GetInstance().GetOutside();
+				hit = DartBoard.GetInstance().GetFieldByColor(_pixels[(int)y][(int)x]);
 			}
-			return target;
+			return hit;
+
+
+			//switch (target.Type)
+			//{
+			//	case FieldEnum.SingleIn:
+			//	case FieldEnum.SingleOut:
+			//		return ThrowSingleDart(target);
+			//	case FieldEnum.Double: return ThrowDoubleDart(target);
+			//	case FieldEnum.SingleBull: return ThrowSingleBull(target);
+					
+			//	case FieldEnum.Triple: return ThrowTripleDart(target);
+			//	case FieldEnum.DoubleBull: return ThrowDoubleBull(target);
+					
+			//}
+			//return target;
+		}
+
+		private int GetRandomQuadrant()
+		{
+			return random.Next(4);
+		}
+
+		private int GetRandomAngle()
+		{
+			return random.Next(91);
+		}
+
+		private double GetNormalDistributedRandom()
+		{
+			double u1 = 1.0 - random.NextDouble(); //uniform(0,1] random doubles
+			double u2 = 1.0 - random.NextDouble();
+			double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
+			double erg = my + sigma * randStdNormal; //random normal(mean,stdDev^2)
+			return erg;
 		}
 
 		public void AssignHitQuotes(int singleQuote, int doubleQuote, int tripleQuote)
@@ -41,6 +101,12 @@ namespace DartBot.Player
 		public void AssignPreferredTarget(bool score19)
 		{
 			Score19 = score19;
+		}
+
+		public void AssignHitQuotes(double my, double sigma)
+		{
+			this.my = my;
+			this.sigma = sigma;
 		}
 
 		public bool Score19 { get; private set; }

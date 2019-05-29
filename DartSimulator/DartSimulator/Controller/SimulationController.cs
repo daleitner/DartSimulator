@@ -17,7 +17,7 @@ namespace DartSimulator.Controller
 		}
 		public Result StartSimulation(int legs, int singleQuote, int doubleQuote, int tripleQuote, bool score19)
 		{
-			this.player.AssignQuotes(singleQuote, doubleQuote, tripleQuote);
+			this.player.AssignQuotes(singleQuote, doubleQuote, tripleQuote, singleQuote, doubleQuote);
 			player.AssignPreferredTarget(score19);
 			var result = new Result();
 			for (int i = 0; i < legs; i++)

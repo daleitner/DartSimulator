@@ -91,9 +91,10 @@ namespace DartBot.Player
 			return this.dartBoard.GetDoubleField(leftScore);
 		}
 
-		public void AssignQuotes(int singleQuote, int doubleQuote, int tripleQuote)
+		public void AssignQuotes(int singleQuote, int doubleQuote, int tripleQuote, double my, double sigma)
 		{
 			this.playerHand.AssignHitQuotes(singleQuote, doubleQuote, tripleQuote);
+			playerHand.AssignHitQuotes(my, sigma);
 		}
 
 		public void AssignPreferredTarget(bool score19)
