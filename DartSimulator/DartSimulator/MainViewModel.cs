@@ -45,6 +45,9 @@ namespace DartSimulator
 			_roundCounts = controller.InitializeRoundCounts();
 			_simulatedDoubleQuote = "0% (0/0)";
 			_result = new Result();
+			SingleQuote = 26;
+			DoubleQuote = 15;
+			TripleQuote = 1;
 		}
 		#endregion
 
@@ -349,6 +352,22 @@ namespace DartSimulator
 			var window = new TargetWindow {DataContext = viewModel};
 			window.ShowDialog();
 		}
+		#endregion
+
+		#region show canvas
+
+		private RelayCommand _showCanvasCommand;
+
+		public ICommand ShowCanvasCommand
+		{
+			get { return _showCanvasCommand ?? (_showCanvasCommand = new RelayCommand(param => ShowCanvas())); }
+		}
+
+		private void ShowCanvas()
+		{
+			_controller.ShowCanvas();
+		}
+
 		#endregion
 	}
 }

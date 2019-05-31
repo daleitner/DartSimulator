@@ -14,6 +14,7 @@ namespace DartBot.Player
 		private double sigma = 0.0;
 		private readonly Random random;
 		private readonly List<List<Color>> _pixels;
+		public Point HitPoint { get; private set; }
 		public PlayerHand(List<List<Color>> pixels)
 		{
 			_pixels = pixels;
@@ -27,7 +28,7 @@ namespace DartBot.Player
 
 			var x = Math.Round(Math.Cos(Math.PI * angle / 180.0) * distance, 0);
 			var y = Math.Round(Math.Sin(Math.PI * angle / 180.0) * distance, 0);
-
+			
 			if (quadrant == 1 || quadrant == 2)
 				x = x * -1;
 			if (quadrant == 2 || quadrant == 3)
@@ -36,6 +37,7 @@ namespace DartBot.Player
 			x += target.Target.X;
 			y += target.Target.Y;
 
+			HitPoint = new Point((int) x, (int) y);
 			if (x < 0 || x >= _pixels.First().Count || y < 0 || y >= _pixels.Count)
 				return DartBoard.GetInstance().GetOutside();
 			var hit = DartBoard.GetInstance().GetFieldByColor(_pixels[(int) y][(int) x]);

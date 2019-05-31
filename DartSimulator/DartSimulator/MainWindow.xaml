@@ -85,6 +85,7 @@
 					<Label Content="180:" Width="90"></Label>
 					<Label Content="{Binding Path=HundretEighties}"></Label>
 				</StackPanel>
+				<Button Content="Show Canvas" Command="{Binding ShowCanvasCommand}" Width="100"></Button>
 			</StackPanel>
 		</StackPanel>
 		<Grid Grid.Row="3" Margin="10,10,50,10">

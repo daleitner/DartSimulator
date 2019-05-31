@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Documents;
+using DartBot;
 using DartBot.Player;
+using DartSimulator.CanvasDialog;
 using static System.Int32;
 
 namespace DartSimulator.Controller
@@ -10,7 +13,7 @@ namespace DartSimulator.Controller
 	public class SimulationController : ISimulationController
 	{
 		private readonly IPlayerService player;
-
+		private List<Point> points;
 		public SimulationController(IPlayerService playerService)
 		{
 			this.player = playerService;
@@ -20,9 +23,11 @@ namespace DartSimulator.Controller
 			this.player.AssignQuotes(singleQuote, doubleQuote, tripleQuote, singleQuote, doubleQuote);
 			player.AssignPreferredTarget(score19);
 			var result = new Result();
+			points = new List<Point>();
 			for (int i = 0; i < legs; i++)
 			{
 				var leg = this.player.PlayLeg();
+				points.AddRange(player.HitPoints);
 				leg.Index = i + 1;
 				result.Legs.Add(leg);
 			}
@@ -54,6 +59,22 @@ namespace DartSimulator.Controller
 				roundCount.Height = (int) (maxHeight / maxCount * roundCount.Count);
 			}
 			return new ObservableCollection<RoundCount>(list);
+		}
+
+		public void ShowCanvas()
+		{
+			var viewModel = new TargetViewModel();
+			viewModel.SelectedDart.Y = DartBoard.GetInstance().GetTripleField(60).Target.Y;
+			viewModel.SelectedDart.X = DartBoard.GetInstance().GetTripleField(60).Target.X;
+			foreach (var point in points)
+			{
+				viewModel.NextCommand.Execute(null);
+				viewModel.SelectedDart.Y = point.Y < 0 ? 0 : point.Y > 339 ? 339 : point.Y;
+				viewModel.SelectedDart.X = point.X < 0 ? 0 : point.X > 339 ? 339 : point.X;
+			}
+			viewModel.NextCommand.Execute(null);
+			var window = new TargetWindow { DataContext = viewModel };
+			window.Show();
 		}
 	}
 }

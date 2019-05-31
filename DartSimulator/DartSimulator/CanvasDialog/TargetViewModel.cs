@@ -217,7 +217,7 @@ namespace DartSimulator.CanvasDialog
 			if(index == _darts.Count-1)
 				_darts.Add(new Dart(index+1));
 			SelectedDart = _darts[index + 1];
-			RefreshImage();
+			//RefreshImage();
 		}
 
 		private void Previous()

@@ -1,4 +1,7 @@
-﻿namespace DartBot.Player
+﻿using System.Collections.Generic;
+using System.Drawing;
+
+namespace DartBot.Player
 {
 	public interface IPlayerService
 	{
@@ -8,5 +11,6 @@
 		Field ValidateTarget(int leftScore, int leftDarts);
 		void AssignQuotes(int singleQuote, int doubleQuote, int tripleQuote, double my, double sigma);
 		void AssignPreferredTarget(bool score19);
+		List<Point> HitPoints { get; }
 	}
 }

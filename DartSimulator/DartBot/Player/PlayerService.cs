@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace DartBot.Player
@@ -7,7 +8,7 @@ namespace DartBot.Player
 	{
 		private readonly DartBoard dartBoard = DartBoard.GetInstance();
 		private readonly IPlayerHand playerHand;
-
+		public List<Point> HitPoints { get; private set; } = new List<Point>();
 		public PlayerService(IPlayerHand playerHand)
 		{
 			this.playerHand = playerHand;
@@ -15,6 +16,7 @@ namespace DartBot.Player
 
 		public Leg PlayLeg()
 		{
+			HitPoints = new List<Point>();
 			var leg = new Leg();
 			var index = 1;
 			while (leg.Points != 501)
@@ -41,6 +43,8 @@ namespace DartBot.Player
 					tries++;
 
 				darts[i] = this.playerHand.ThrowDart(target);
+				if(target.Value == 60)
+					HitPoints.Add(playerHand.HitPoint);
 				leftScore -= darts[i].Value;
 				if (leftScore == 0 && (darts[i].Type == FieldEnum.Double || darts[i].Type == FieldEnum.DoubleBull))
 				{
