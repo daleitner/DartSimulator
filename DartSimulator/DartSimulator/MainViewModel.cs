@@ -14,7 +14,7 @@ namespace DartSimulator
 		#region members
 		private RelayCommand _startCommand;
 		private RelayCommand _openCanvasCommand;
-		private int _amountLegs = 10000;
+		private int _amountLegs = 7000;
 		private int _singleQuote;
 		private int _doubleQuote;
 		private int _tripleQuote;
@@ -45,8 +45,8 @@ namespace DartSimulator
 			_roundCounts = controller.InitializeRoundCounts();
 			_simulatedDoubleQuote = "0% (0/0)";
 			_result = new Result();
-			SingleQuote = 26;
-			DoubleQuote = 15;
+			SingleQuote = 22;
+			DoubleQuote = 12;
 			TripleQuote = 1;
 		}
 		#endregion
