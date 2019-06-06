@@ -21,18 +21,13 @@
 					<TextBox Text="{Binding Path=AmountLegs}" Width="70" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
-					<Label Content="Trefferquote Singles:" Width="130"></Label>
-					<TextBox Text="{Binding Path=SingleQuote}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+					<Label Content="Mittelwert:" Width="130"></Label>
+					<TextBox Text="{Binding Path=My}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 					<Label Content="%"></Label>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
-					<Label Content="Trefferquote Doubles:" Width="130"></Label>
-					<TextBox Text="{Binding Path=DoubleQuote}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
-					<Label Content="%"></Label>
-				</StackPanel>
-				<StackPanel Orientation="Horizontal">
-					<Label Content="Trefferquote Triples:" Width="130"></Label>
-					<TextBox Text="{Binding Path=TripleQuote}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+					<Label Content="Standardabweichung:" Width="130"></Label>
+					<TextBox Text="{Binding Path=Sigma}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
 					<Label Content="%"></Label>
 				</StackPanel>
 			</StackPanel>
@@ -86,6 +81,7 @@
 					<Label Content="{Binding Path=HundretEighties}"></Label>
 				</StackPanel>
 				<Button Content="Show Canvas" Command="{Binding ShowCanvasCommand}" Width="100"></Button>
+				<Button Content="Start Test" Command="{Binding TestCommand}" Width="100"></Button>
 			</StackPanel>
 		</StackPanel>
 		<Grid Grid.Row="3" Margin="10,10,50,10">

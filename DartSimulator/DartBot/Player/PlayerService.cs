@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Dart.Base;
 
 namespace DartBot.Player
 {
 	public class PlayerService : IPlayerService
 	{
-		private readonly DartBoard dartBoard = DartBoard.GetInstance();
+		private readonly DartBoard dartBoard = DartBoard.Instance;
 		private readonly IPlayerHand playerHand;
 		public List<Point> HitPoints { get; private set; } = new List<Point>();
 		public PlayerService(IPlayerHand playerHand)
@@ -42,7 +43,7 @@ namespace DartBot.Player
 				if (target.Type == FieldEnum.Double || target.Type == FieldEnum.DoubleBull)
 					tries++;
 
-				darts[i] = this.playerHand.ThrowDart(target);
+				darts[i] = playerHand.ThrowDart(target);
 				if(target.Value == 60)
 					HitPoints.Add(playerHand.HitPoint);
 				leftScore -= darts[i].Value;
@@ -95,9 +96,8 @@ namespace DartBot.Player
 			return this.dartBoard.GetDoubleField(leftScore);
 		}
 
-		public void AssignQuotes(int singleQuote, int doubleQuote, int tripleQuote, double my, double sigma)
+		public void AssignQuotes(double my, double sigma)
 		{
-			this.playerHand.AssignHitQuotes(singleQuote, doubleQuote, tripleQuote);
 			playerHand.AssignHitQuotes(my, sigma);
 		}
 
@@ -115,7 +115,7 @@ namespace DartBot.Player
 			var typeList = new List<FieldEnum> {FieldEnum.SingleOut, FieldEnum.SingleBull, FieldEnum.Double, FieldEnum.Triple};
 			foreach (var type in typeList)
 			{
-				var selectedFields = this.dartBoard.Fields.Where(x => x.Type == type).ToList();
+				var selectedFields = dartBoard.GetFieldsByType(type).ToList();
 				if(type == FieldEnum.Triple)
 					selectedFields.Add(doubleBull);
 				foreach (var field in selectedFields)

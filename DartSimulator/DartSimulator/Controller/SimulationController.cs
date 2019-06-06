@@ -2,8 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Documents;
-using DartBot;
+using Dart.Base;
 using DartBot.Player;
 using DartSimulator.CanvasDialog;
 using static System.Int32;
@@ -18,9 +17,10 @@ namespace DartSimulator.Controller
 		{
 			this.player = playerService;
 		}
-		public Result StartSimulation(int legs, int singleQuote, int doubleQuote, int tripleQuote, bool score19)
+		public Result StartSimulation(int legs, int my, int sigma, bool score19)
 		{
-			this.player.AssignQuotes(singleQuote, doubleQuote, tripleQuote, singleQuote, doubleQuote);
+			DartBoard.Instance.ClearDartboard();
+			player.AssignQuotes(my, sigma);
 			player.AssignPreferredTarget(score19);
 			var result = new Result();
 			points = new List<Point>();
@@ -64,8 +64,8 @@ namespace DartSimulator.Controller
 		public void ShowCanvas()
 		{
 			var viewModel = new TargetViewModel();
-			viewModel.SelectedDart.Y = DartBoard.GetInstance().GetTripleField(60).Target.Y;
-			viewModel.SelectedDart.X = DartBoard.GetInstance().GetTripleField(60).Target.X;
+			viewModel.SelectedDart.Y = DartBoard.Instance.GetTripleField(60).Target.Y;
+			viewModel.SelectedDart.X = DartBoard.Instance.GetTripleField(60).Target.X;
 			foreach (var point in points)
 			{
 				viewModel.NextCommand.Execute(null);

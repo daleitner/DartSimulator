@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Base;
+using Dart.Base;
 
 namespace DartSimulator.CanvasDialog
 {
@@ -23,27 +24,18 @@ namespace DartSimulator.CanvasDialog
 		private RelayCommand _previousCommand;
 		private BitmapImage _content;
 		private readonly Bitmap _defaultBitmap;
-		private readonly List<Dart> _darts;
-		private Dart _selectedDart;
+		private readonly List<DartPoint> _darts;
+		private DartPoint _selectedDart;
 		#endregion
 
 		#region ctors
 		public TargetViewModel()
 		{
-			var canvas = new CanvasUserControl();
-			var pixels = canvas.GetBytes();
-			_defaultBitmap = new Bitmap(pixels.First().Count, pixels.Count);
-			for (int i = 0; i < pixels.Count; i++)
-			{
-				for (int j = 0; j < pixels[i].Count; j++)
-				{
-					_defaultBitmap.SetPixel(j, i, pixels[i][j]);
-				}
-			}
+			_defaultBitmap = DartBoard.Instance.GetDartboardImage();
 
-			_darts = new List<Dart>
+			_darts = new List<DartPoint>
 			{
-				new Dart(0,true)
+				new DartPoint(0,true)
 			};
 			_selectedDart = _darts.First();
 			_selectedDart.IsSelected = true;
@@ -171,7 +163,7 @@ namespace DartSimulator.CanvasDialog
 		}
 		public string Current => SelectedDart?.Index.ToString() ?? "";
 
-		public Dart SelectedDart
+		public DartPoint SelectedDart
 		{
 			get => _selectedDart;
 			set
@@ -215,7 +207,7 @@ namespace DartSimulator.CanvasDialog
 			if (index < 0)
 				return;
 			if(index == _darts.Count-1)
-				_darts.Add(new Dart(index+1));
+				_darts.Add(new DartPoint(index+1));
 			SelectedDart = _darts[index + 1];
 			//RefreshImage();
 		}

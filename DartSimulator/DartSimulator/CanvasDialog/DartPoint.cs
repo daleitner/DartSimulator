@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace DartSimulator.CanvasDialog
 {
-	public class Dart
+	public class DartPoint
 	{
 		private bool _isTarget;
-		public Dart(int index, bool isTarget = false)
+		public DartPoint(int index, bool isTarget = false)
 		{
 			Index = index;
 			_isTarget = isTarget;
-			X = 170;
-			Y = 170;
+			X = 180;
+			Y = 180;
 		}
 
 		public int Index { get; }

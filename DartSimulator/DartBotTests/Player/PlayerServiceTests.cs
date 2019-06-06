@@ -2,6 +2,7 @@
 using System.Linq;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using Dart.Base;
 using DartBot;
 using DartBot.Player;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -170,7 +171,7 @@ namespace DartBotTests.Player
 		[TestMethod]
 		public void WhenGetRoundAndSecondDartIsCheckDart_ThenDart3ShouldBeNull()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			this.playerHandMock.SetupSequence(x => x.ThrowDart(It.IsAny<Field>()))
 				.Returns(dartBoard.GetOutside())
 				.Returns(dartBoard.GetDoubleField(32));
@@ -183,7 +184,7 @@ namespace DartBotTests.Player
 		[TestMethod]
 		public void WhenBust_ThenRoundShouldBeNoScoreRound()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			this.playerHandMock.Setup(x => x.ThrowDart(It.IsAny<Field>()))
 				.Returns(dartBoard.GetTripleField(60));
 			var leftScore = 32;
@@ -195,7 +196,7 @@ namespace DartBotTests.Player
 		[TestMethod]
 		public void WhenLeftScoreIsOne_ThenRoundShouldBeNoScoreRound()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			this.playerHandMock.SetupSequence(x => x.ThrowDart(It.IsAny<Field>()))
 				.Returns(dartBoard.GetTripleField(60))
 				.Returns(dartBoard.GetOutside())
@@ -209,7 +210,7 @@ namespace DartBotTests.Player
 		[TestMethod]
 		public void WhenHaveFirstAndThridDartCheckdarts_ThenTriesShouldBeTwo()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			this.playerHandMock.SetupSequence(x => x.ThrowDart(It.IsAny<Field>()))
 				.Returns(dartBoard.GetSingleOutField(5))
 				.Returns(dartBoard.GetSingleOutField(1))
@@ -223,7 +224,7 @@ namespace DartBotTests.Player
 		[TestMethod]
 		public void WhenCheckWithLastDart_ThenTriesShouldBeThree()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			this.playerHandMock.SetupSequence(x => x.ThrowDart(It.IsAny<Field>()))
 				.Returns(dartBoard.GetOutside())
 				.Returns(dartBoard.GetOutside())
@@ -237,7 +238,7 @@ namespace DartBotTests.Player
 		[TestMethod]
 		public void WhenCheckHundretSeventy_ThenTriesShouldBeOne()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			this.playerHandMock.SetupSequence(x => x.ThrowDart(It.IsAny<Field>()))
 				.Returns(dartBoard.GetTripleField(60))
 				.Returns(dartBoard.GetTripleField(60))

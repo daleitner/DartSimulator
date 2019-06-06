@@ -1,5 +1,6 @@
 ﻿using ApprovalTests;
 using ApprovalTests.Reporters;
+using Dart.Base;
 using DartBot;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -71,7 +72,7 @@ namespace DartBotTests
 		[TestMethod]
 		public void WhenThrowSingleBullOutsideDoubleBull_ThenSumShouldBeSeventyFive()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var round = new Round
 			{
 				Dart1 = dartBoard.GetSingleBull(),
@@ -86,7 +87,7 @@ namespace DartBotTests
 		[TestMethod]
 		public void WhenThrowThirtyTwoWithFirstDart_ThenSumShouldBeThirtyTwo()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var round = new Round
 			{
 				Dart1 = dartBoard.GetDoubleField(32),
@@ -100,7 +101,7 @@ namespace DartBotTests
 		[TestMethod]
 		public void WhenThrowThirtyTwoWithLast_ThenSumShouldBeThirtyTwo()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var round = new Round
 			{
 				Dart1 = dartBoard.GetOutside(),

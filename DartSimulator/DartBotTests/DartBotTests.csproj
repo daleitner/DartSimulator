@@ -70,7 +70,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="DartBoardTests.cs" />
     <Compile Include="LegTests.cs" />
     <Compile Include="Player\PlayerServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +79,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dart.Base\Dart.Base.csproj">
+      <Project>{CA4FA003-C378-4EA3-BCF1-B4B17C8532BD}</Project>
+      <Name>Dart.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DartBot\DartBot.csproj">
       <Project>{227db4a7-24de-4f5e-837b-93cfcdc2ce8c}</Project>
       <Name>DartBot</Name>

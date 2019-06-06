@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using Dart.Base;
 using DartBot;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,7 +14,7 @@ namespace DartBotTests
 		[TestMethod]
 		public void WhenLastRoundHasThreeDarts_ThenAmountShouldBeTwelve()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var ttwenty = dartBoard.GetTripleField(60);
 			var one = dartBoard.GetSingleOutField(1);
 			var dtwenty = dartBoard.GetDoubleField(40);
@@ -35,7 +36,7 @@ namespace DartBotTests
 		[TestMethod]
 		public void WhenLastRoundHasTwoDarts_ThenAmountShouldBeEleven()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var ttwenty = dartBoard.GetTripleField(60);
 			var one = dartBoard.GetSingleOutField(1);
 			var dtwenty = dartBoard.GetDoubleField(40);
@@ -57,7 +58,7 @@ namespace DartBotTests
 		[TestMethod]
 		public void WhenLastRoundHasOneDart_ThenAmountShouldBeTen()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var ttwenty = dartBoard.GetTripleField(60);
 			var one = dartBoard.GetSingleOutField(1);
 			var dtwenty = dartBoard.GetDoubleField(40);
@@ -86,7 +87,7 @@ namespace DartBotTests
 		[TestMethod]
 		public void WhenFinishedALeg_ThenPointsShouldBeFivehundretOne()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var ttwenty = dartBoard.GetTripleField(60);
 			var one = dartBoard.GetSingleOutField(1);
 			var dtwenty = dartBoard.GetDoubleField(40);

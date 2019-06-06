@@ -2,7 +2,9 @@
 using System.Collections.ObjectModel;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using Dart.Base;
 using DartBot;
+using DartBot.Player;
 using DartSimulator;
 using DartSimulator.Controller;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,39 +18,41 @@ namespace DartSimulatorTests
 	public class ViewModelTests
 	{
 		private Mock<ISimulationController> controllerMock;
+		private Mock<IPlayerHand> _playerHand;
 
 		[TestInitialize]
 		public void Setup()
 		{
 			controllerMock = new Mock<ISimulationController>();
+			_playerHand = new Mock<IPlayerHand>();
 		}
 		[TestMethod]
 		public void WhenCreatingNewViewModel_LegsShouldBeTenThousand()
 		{
-			var viewModel = new MainViewModel(controllerMock.Object);
+			var viewModel = new MainViewModel(controllerMock.Object, _playerHand.Object);
 			viewModel.AmountLegs.ShouldEqual(10000);
 		}
 
 		[TestMethod]
 		public void WhenCreatingNewViewModel_VerifyRoundCounts()
 		{
-			var viewModel = new MainViewModel(controllerMock.Object);
+			var viewModel = new MainViewModel(controllerMock.Object, _playerHand.Object);
 			controllerMock.Verify(x => x.InitializeRoundCounts(), Times.Once, "RoundCounts wasn't initialized");
 		}
 
 		[TestMethod]
 		public void WhenClickSimulateButton_ThenControllerShouldGetTriggered()
 		{
-			var viewModel = new MainViewModel(controllerMock.Object);
+			var viewModel = new MainViewModel(controllerMock.Object, _playerHand.Object);
 			viewModel.StartCommand.Execute(null);
-			controllerMock.Verify(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>()), Times.Once, "Start Simulation was not triggered");
+			controllerMock.Verify(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>()), Times.Once, "Start Simulation was not triggered");
 			controllerMock.Verify(x => x.FillRoundCounts(It.IsAny<ObservableCollection<RoundCount>>(), It.IsAny<Result>()), Times.Once, "FillRoundCounts was not triggered");
 		}
 
 		[TestMethod]
 		public void WhenStartSimulation_ThenAllPropertiesShouldBeFilled()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var twenty = dartBoard.GetSingleOutField(20);
 			var ttwenty = dartBoard.GetTripleField(60);
 			var leg1 = new Leg
@@ -81,11 +85,11 @@ namespace DartSimulatorTests
 			{
 				Legs = new List<Leg> { leg1, leg2 }
 			};
-			controllerMock.Setup(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>())).Returns(result);
+			controllerMock.Setup(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>())).Returns(result);
 			controllerMock
 				.Setup(x => x.FillRoundCounts(It.IsAny<ObservableCollection<RoundCount>>(), It.IsAny<Result>()))
 				.Returns(new ObservableCollection<RoundCount>(){new RoundCount("15")});
-			var viewModel = new MainViewModel(controllerMock.Object);
+			var viewModel = new MainViewModel(controllerMock.Object, _playerHand.Object);
 			viewModel.StartCommand.Execute(null);
 			Approvals.Verify(GetResultProperties(viewModel));
 		}

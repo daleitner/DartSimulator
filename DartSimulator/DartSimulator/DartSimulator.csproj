@@ -59,20 +59,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CanvasDialog\CanvasUserControl.xaml.cs">
-      <DependentUpon>CanvasUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CanvasDialog\Dart.cs" />
+    <Compile Include="CanvasDialog\DartPoint.cs" />
     <Compile Include="CanvasDialog\TargetWindow.xaml.cs">
       <DependentUpon>TargetWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="CanvasDialog\TargetViewModel.cs" />
     <Compile Include="Common\ColorExtension.cs" />
     <Compile Include="RoundCount.cs" />
-    <Page Include="CanvasDialog\CanvasUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="CanvasDialog\TargetWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +125,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dart.Base\Dart.Base.csproj">
+      <Project>{ca4fa003-c378-4ea3-bcf1-b4b17c8532bd}</Project>
+      <Name>Dart.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DartBot\DartBot.csproj">
       <Project>{227db4a7-24de-4f5e-837b-93cfcdc2ce8c}</Project>
       <Name>DartBot</Name>

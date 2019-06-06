@@ -21,9 +21,8 @@ namespace DartSimulatorTests
 		{
 			var window = new MainWindow();
 			var viewModel = window.DataContext as MainViewModel;
-			viewModel.DoubleQuote = 20;
-			viewModel.SingleQuote = 50;
-			viewModel.TripleQuote = 10;
+			viewModel.Sigma = 20;
+			viewModel.My = 50;
 			WpfApprovals.Verify(window);
 		}
 	}

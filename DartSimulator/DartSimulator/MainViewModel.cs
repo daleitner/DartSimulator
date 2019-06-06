@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using Base;
+using Dart.Base;
 using DartBot;
+using DartBot.Player;
 using DartSimulator.CanvasDialog;
 using DartSimulator.Controller;
 
@@ -15,9 +19,8 @@ namespace DartSimulator
 		private RelayCommand _startCommand;
 		private RelayCommand _openCanvasCommand;
 		private int _amountLegs = 7000;
-		private int _singleQuote;
-		private int _doubleQuote;
-		private int _tripleQuote;
+		private int _my;
+		private int _sigma;
 		private double _average;
 		private double _dartAverage;
 		private int _bestLeg;
@@ -36,18 +39,19 @@ namespace DartSimulator
 		private int _halfMaxCount;
 		private ObservableCollection<RoundCount> _roundCounts;
 		private readonly ISimulationController _controller;
+		private readonly IPlayerHand _playerHand;
 		#endregion
 
 		#region ctors
-		public MainViewModel(ISimulationController controller)
+		public MainViewModel(ISimulationController controller, IPlayerHand playerHand)
 		{
 			_controller = controller;
+			_playerHand = playerHand;
 			_roundCounts = controller.InitializeRoundCounts();
 			_simulatedDoubleQuote = "0% (0/0)";
 			_result = new Result();
-			SingleQuote = 22;
-			DoubleQuote = 12;
-			TripleQuote = 1;
+			My = 22;
+			Sigma = 12;
 		}
 		#endregion
 
@@ -174,42 +178,31 @@ namespace DartSimulator
 				OnPropertyChanged("AmountLegs");
 			}
 		}
-		public int SingleQuote
+		public int My
 		{
 			get
 			{
-				return _singleQuote;
+				return _my;
 			}
 			set
 			{
-				_singleQuote = value;
-				OnPropertyChanged("SingleQuote");
+				_my = value;
+				OnPropertyChanged("My");
 			}
 		}
-		public int DoubleQuote
+		public int Sigma
 		{
 			get
 			{
-				return _doubleQuote;
+				return _sigma;
 			}
 			set
 			{
-				_doubleQuote = value;
-				OnPropertyChanged("DoubleQuote");
+				_sigma = value;
+				OnPropertyChanged("Sigma");
 			}
 		}
-		public int TripleQuote
-		{
-			get
-			{
-				return _tripleQuote;
-			}
-			set
-			{
-				_tripleQuote = value;
-				OnPropertyChanged("TripleQuote");
-			}
-		}
+
 		public Leg SelectedLeg
 		{
 			get
@@ -304,7 +297,7 @@ namespace DartSimulator
 		#region private methods
 		private void Start()
 		{
-			_result = _controller.StartSimulation(AmountLegs, SingleQuote, DoubleQuote, TripleQuote, Score19);
+			_result = _controller.StartSimulation(AmountLegs, My, Sigma, Score19);
 			RoundCounts = _controller.FillRoundCounts(RoundCounts, _result);
 			
 			Refresh();
@@ -312,7 +305,7 @@ namespace DartSimulator
 		}
 		private bool CanStart()
 		{
-			return SingleQuote > 0 && DoubleQuote > 0 && TripleQuote > 0;
+			return My >= 0 && Sigma >= 0;
 		}
 
 		private void Refresh()
@@ -368,6 +361,37 @@ namespace DartSimulator
 			_controller.ShowCanvas();
 		}
 
+		#endregion
+
+		#region test button
+
+		private RelayCommand _testCommand;
+
+		public ICommand TestCommand
+		{
+			get { return _testCommand ?? (_testCommand = new RelayCommand(param => Test())); }
+		}
+
+		private void Test()
+		{
+			_playerHand.AssignHitQuotes(My, Sigma);
+			var message = "";
+			for (int j = 1; j <= 20; j++)
+			{
+				int hits = 0;
+				var target = DartBoard.Instance.GetDoubleBull();
+				for (int i = 0; i < AmountLegs; i++)
+				{
+					var hit = _playerHand.ThrowDart(target);
+					if (hit == target)
+						hits++;
+				}
+
+				message += target + ": " + Math.Round((double) hits * 100 / AmountLegs, 2) + "% (" + hits + "/" + AmountLegs + ")\r\n";
+			}
+
+			MessageBox.Show(message);
+		}
 		#endregion
 	}
 }

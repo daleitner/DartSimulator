@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using Dart.Base;
 using DartBot;
 using DartSimulator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,7 +21,7 @@ namespace DartSimulatorTests
 		[TestMethod]
 		public void WhenThrowFiveHundretEighties_ThenHundretEightiesShouldBeFive()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var ttwenty = dartBoard.GetTripleField(60);
 			var tnineteen = dartBoard.GetTripleField(57);
 			var dtwelve = dartBoard.GetDoubleField(24);
@@ -54,7 +55,7 @@ namespace DartSimulatorTests
 		[TestMethod]
 		public void WhenThrowNoHundretEighties_ThenHundretEightiesShouldBeZero()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var ttwenty = dartBoard.GetTripleField(60);
 			var tnineteen = dartBoard.GetTripleField(57);
 			var dfifteen = dartBoard.GetDoubleField(30);
@@ -79,7 +80,7 @@ namespace DartSimulatorTests
 		[TestMethod]
 		public void WhenThrowThreeHundretFourties_ThenHundretFourtiesShouldBeThree()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var twenty = dartBoard.GetSingleOutField(20);
 			var ttwenty = dartBoard.GetTripleField(60);
 			var one = dartBoard.GetSingleOutField(1);
@@ -106,7 +107,7 @@ namespace DartSimulatorTests
 		[TestMethod]
 		public void WhenThrowTwoHundretFourtiesAndOneHundretEighty_ThenHundretFourtiesShouldBeTwo()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var twenty = dartBoard.GetSingleOutField(20);
 			var ttwenty = dartBoard.GetTripleField(60);
 			var one = dartBoard.GetSingleOutField(1);
@@ -133,7 +134,7 @@ namespace DartSimulatorTests
 		[TestMethod]
 		public void WhenThrowTwoHundretFourtiesAndOneHundretSeventySeven_ThenHundretFourtiesShouldBeThree()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var twenty = dartBoard.GetSingleOutField(20);
 			var ttwenty = dartBoard.GetTripleField(60);
 			var one = dartBoard.GetSingleOutField(1);
@@ -162,7 +163,7 @@ namespace DartSimulatorTests
 		[TestMethod]
 		public void WhenThrowFiveHundrets_ThenHundretsShouldBeFive()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var twenty = dartBoard.GetSingleOutField(20);
 			var ttwenty = dartBoard.GetTripleField(60);
 			var one = dartBoard.GetSingleOutField(1);
@@ -190,7 +191,7 @@ namespace DartSimulatorTests
 		[TestMethod]
 		public void WhenThrowHundretHundretFourtyHundretEighty_ThenHundretsShouldBeOne()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var twenty = dartBoard.GetSingleOutField(20);
 			var ttwenty = dartBoard.GetTripleField(60);
 			var one = dartBoard.GetSingleOutField(1);
@@ -217,7 +218,7 @@ namespace DartSimulatorTests
 		[TestMethod]
 		public void WhenPlayTwoLegs_ThenVerifyWorstLeg()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var twenty = dartBoard.GetSingleOutField(20);
 			var ttwenty = dartBoard.GetTripleField(60);
 			var one = dartBoard.GetSingleOutField(1);
@@ -259,7 +260,7 @@ namespace DartSimulatorTests
 		[TestMethod]
 		public void WhenPlayTwoLegs_ThenVerifyBestLeg()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var twenty = dartBoard.GetSingleOutField(20);
 			var ttwenty = dartBoard.GetTripleField(60);
 			var one = dartBoard.GetSingleOutField(1);
@@ -301,7 +302,7 @@ namespace DartSimulatorTests
 		[TestMethod]
 		public void WhenPlayTwoLegs_ThenVerifyDartAverage()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var twenty = dartBoard.GetSingleOutField(20);
 			var ttwenty = dartBoard.GetTripleField(60);
 			var one = dartBoard.GetSingleOutField(1);
@@ -343,7 +344,7 @@ namespace DartSimulatorTests
 		[TestMethod]
 		public void WhenThrowFiveHundrets_ThenVerifyAverage()
 		{
-			var dartBoard = DartBoard.GetInstance();
+			var dartBoard = DartBoard.Instance;
 			var twenty = dartBoard.GetSingleOutField(20);
 			var ttwenty = dartBoard.GetTripleField(60);
 			var one = dartBoard.GetSingleOutField(1);

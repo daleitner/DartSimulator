@@ -1,4 +1,6 @@
-﻿namespace DartBot
+﻿using Dart.Base;
+
+namespace DartBot
 {
 	public class Round
 	{
