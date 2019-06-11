@@ -49,35 +49,39 @@
 			</Grid>
 			<StackPanel Orientation="Vertical" Margin="5,5,0,0">
 				<StackPanel Orientation="Horizontal">
-					<Label Content="3 Dart Average:" Width="90"></Label>
+					<Label Content="3 Dart Average:" Width="100"></Label>
 					<Label Content="{Binding Path=Average}"></Label>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
-					<Label Content="Doppelquote:" Width="90"></Label>
+					<Label Content="Average (First 9):" Width="100"></Label>
+					<Label Content="{Binding Path=FirstNineAverage}"></Label>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Doppelquote:" Width="100"></Label>
 					<Label Content="{Binding Path=SimulatedDoubleQuote}"></Label>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
-					<Label Content="Best Leg:" Width="90"></Label>
+					<Label Content="Best Leg:" Width="100"></Label>
 					<Label Content="{Binding Path=BestLeg}"></Label>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
-					<Label Content="Worst Leg:" Width="90"></Label>
+					<Label Content="Worst Leg:" Width="100"></Label>
 					<Label Content="{Binding Path=WorstLeg}"></Label>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
-					<Label Content="Darts Average:" Width="90"></Label>
+					<Label Content="Darts Average:" Width="100"></Label>
 					<Label Content="{Binding Path=DartAverage}"></Label>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
-					<Label Content="100:" Width="90"></Label>
+					<Label Content="100:" Width="100"></Label>
 					<Label Content="{Binding Path=Hundrets}"></Label>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
-					<Label Content="140:" Width="90"></Label>
+					<Label Content="140:" Width="100"></Label>
 					<Label Content="{Binding Path=HundretFourties}"></Label>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
-					<Label Content="180:" Width="90"></Label>
+					<Label Content="180:" Width="100"></Label>
 					<Label Content="{Binding Path=HundretEighties}"></Label>
 				</StackPanel>
 				<Button Content="Show Canvas" Command="{Binding ShowCanvasCommand}" Width="100"></Button>

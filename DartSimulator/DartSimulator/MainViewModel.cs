@@ -23,6 +23,7 @@ namespace DartSimulator
 		private int _sigma;
 		private double _average;
 		private double _dartAverage;
+		private double _firstNineAverage;
 		private int _bestLeg;
 		private int _worstLeg;
 		private int _hundrets;
@@ -77,6 +78,16 @@ namespace DartSimulator
 			{
 				_dartAverage = value;
 				OnPropertyChanged(nameof(DartAverage));
+			}
+		}
+
+		public double FirstNineAverage
+		{
+			get => _firstNineAverage;
+			set
+			{
+				_firstNineAverage = value;
+				OnPropertyChanged(nameof(FirstNineAverage));
 			}
 		}
 
@@ -318,6 +329,7 @@ namespace DartSimulator
 			HundretFourties = _result.HundretFourties;
 			Hundrets = _result.Hundrets;
 			DartAverage = _result.DartAverage;
+			FirstNineAverage = _result.FirstNineAverage;
 			if(IsSortByDarts)
 				Legs = new List<Leg>(_result.Legs.OrderBy(x => x.AmountDarts));
 			else

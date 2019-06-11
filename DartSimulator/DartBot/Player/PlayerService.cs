@@ -19,12 +19,17 @@ namespace DartBot.Player
 		{
 			HitPoints = new List<Point>();
 			var leg = new Leg();
+			//var leg2 = new Leg();
 			var index = 1;
-			while (leg.Points != 501)
+			while (leg.Points != 501)// && leg2.Points != 501)
 			{
 				var leftScore = 501-leg.Points;
+			//	var leftScore2 = 501 - leg2.Points;
+
 				var newRound = GetRound(leftScore, index);
+				//var newRound2 = GetRound(leftScore2, index);
 				leg.Runden.Add(newRound);
+				//leg2.Runden.Add(newRound2);
 				index++;
 			}
 			return leg;
@@ -81,13 +86,26 @@ namespace DartBot.Player
 			{
 				if (leftDarts == 2)
 				{
+					if(leftScore == 110)
+						return dartBoard.GetTripleField(60);
 					if (leftScore == 107)
-						return this.dartBoard.GetTripleField(57);
+						return dartBoard.GetTripleField(57);
 					if (leftScore == 104)
-						return this.dartBoard.GetTripleField(54);
+						return dartBoard.GetTripleField(54);
 					if (leftScore == 101)
-						return this.dartBoard.GetTripleField(51);
+						return dartBoard.GetTripleField(51);
 				}
+				if (leftScore == 100 || leftScore == 118 || leftScore == 120 || leftScore == 121 ||
+					leftScore == 124 || leftScore == 127 || leftScore == 130 || leftScore == 156 || 
+					leftScore == 158 || leftScore == 160 || leftScore == 170)
+						return dartBoard.GetTripleField(60);
+
+				if (leftScore == 119 || leftScore == 123 || leftScore == 126 || leftScore == 129)
+					return dartBoard.GetTripleField(57);
+
+				if (leftScore == 122 || leftScore == 125 || leftScore == 128)
+					return dartBoard.GetTripleField(54);
+
 				return playerHand.Score19 ? dartBoard.GetTripleField(57) : dartBoard.GetTripleField(60);
 			}
 			var doubleField = GetDoubleField(leftScore);
@@ -135,7 +153,7 @@ namespace DartBot.Player
 						return list.First(x => list.Max(y => y.Value) == x.Value);
 				}
 			}
-			return this.dartBoard.GetTripleField(60);
+			return playerHand.Score19 ? dartBoard.GetTripleField(57) : dartBoard.GetTripleField(60);
 		}
 
 		private Field GetDoubleField(int leftScore)

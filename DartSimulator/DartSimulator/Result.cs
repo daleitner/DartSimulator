@@ -20,6 +20,7 @@ namespace DartSimulator
 		public int BestLeg => GetBestLeg();
 		public double DartAverage => GetDartAverage();
 		public double Average => GetAverage();
+		public double FirstNineAverage => GetFirstNineAverage();
 		public int Hits => this.Legs.Count;
 		public int Tries => GetTries();
 
@@ -74,6 +75,15 @@ namespace DartSimulator
 			if (darts == 0)
 				return 0.0;
 			return Math.Round((double)points/darts*3, 2);
+		}
+
+		private double GetFirstNineAverage()
+		{
+			var points = this.Legs.Select(x => x.Runden[0].Sum + x.Runden[1].Sum + x.Runden[2].Sum).Sum();
+			var darts = this.Legs.Count*9;
+			if (darts == 0)
+				return 0.0;
+			return Math.Round((double)points / darts * 3, 2);
 		}
 
 		private int GetTries()
