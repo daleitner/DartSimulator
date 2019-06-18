@@ -4,7 +4,7 @@ namespace DartSimulator.Controller
 {
 	public interface ISimulationController
 	{
-		Result StartSimulation(int legs, int my, int sigma, bool score19);
+		Result StartSimulation(int legs, int my, int sigma, bool score19, bool withOpponent);
 		ObservableCollection<RoundCount> InitializeRoundCounts();
 		ObservableCollection<RoundCount> FillRoundCounts(ObservableCollection<RoundCount> roundCounts, Result result);
 		void ShowCanvas();

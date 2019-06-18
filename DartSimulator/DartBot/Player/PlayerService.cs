@@ -15,21 +15,25 @@ namespace DartBot.Player
 			this.playerHand = playerHand;
 		}
 
-		public Leg PlayLeg()
+		public Leg PlayLeg(bool withOpponent)
 		{
 			HitPoints = new List<Point>();
 			var leg = new Leg();
-			//var leg2 = new Leg();
+			var leg2 = new Leg();
 			var index = 1;
-			while (leg.Points != 501)// && leg2.Points != 501)
+			while (leg.Points != 501 && leg2.Points != 501)
 			{
 				var leftScore = 501-leg.Points;
-			//	var leftScore2 = 501 - leg2.Points;
+				var leftScore2 = 501 - leg2.Points;
 
 				var newRound = GetRound(leftScore, index);
-				//var newRound2 = GetRound(leftScore2, index);
 				leg.Runden.Add(newRound);
-				//leg2.Runden.Add(newRound2);
+				if (withOpponent)
+				{
+					var newRound2 = GetRound(leftScore2, index);
+					leg2.Runden.Add(newRound2);
+				}
+
 				index++;
 			}
 			return leg;

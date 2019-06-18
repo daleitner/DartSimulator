@@ -38,6 +38,7 @@ namespace DartSimulator
 		private bool _score19;
 		private int _maxCount;
 		private int _halfMaxCount;
+		private bool _withOpponent;
 		private ObservableCollection<RoundCount> _roundCounts;
 		private readonly ISimulationController _controller;
 		private readonly IPlayerHand _playerHand;
@@ -303,12 +304,22 @@ namespace DartSimulator
 				OnPropertyChanged(nameof(Score19));
 			}
 		}
+
+		public bool WithOpponent
+		{
+			get => _withOpponent;
+			set
+			{
+				_withOpponent = value;
+				OnPropertyChanged(nameof(WithOpponent));
+			}
+		}
 		#endregion
 
 		#region private methods
 		private void Start()
 		{
-			_result = _controller.StartSimulation(AmountLegs, My, Sigma, Score19);
+			_result = _controller.StartSimulation(AmountLegs, My, Sigma, Score19, WithOpponent);
 			RoundCounts = _controller.FillRoundCounts(RoundCounts, _result);
 			
 			Refresh();
@@ -388,22 +399,79 @@ namespace DartSimulator
 		{
 			_playerHand.AssignHitQuotes(My, Sigma);
 			var message = "";
-			for (int j = 1; j <= 20; j++)
+			var checks = 0;
+			var tries = 100000;
+			for (int i = 0; i < tries; i++)
 			{
-				int hits = 0;
-				var target = DartBoard.Instance.GetDoubleBull();
-				for (int i = 0; i < AmountLegs; i++)
-				{
-					var hit = _playerHand.ThrowDart(target);
-					if (hit == target)
-						hits++;
-				}
-
-				message += target + ": " + Math.Round((double) hits * 100 / AmountLegs, 2) + "% (" + hits + "/" + AmountLegs + ")\r\n";
+				var hasChecked = HasChecked();
+				if (hasChecked)
+					checks++;
 			}
+
+			message = Math.Round((double) checks * 100 / tries, 2) + "% (" + checks + "/" + tries + ")";
+
+			//for (int j = 1; j <= 20; j++)
+			//{
+			//	int hits = 0;
+			//	var target = DartBoard.Instance.GetSingleOutField(j);
+			//	for (int i = 0; i < AmountLegs; i++)
+			//	{
+			//		var hit = _playerHand.ThrowDart(target);
+			//		if (hit == target)
+			//			hits++;
+			//	}
+
+			//	message += target + ": " + Math.Round((double) hits * 100 / AmountLegs, 2) + "% (" + hits + "/" + AmountLegs + ")\r\n";
+			//}
 
 			MessageBox.Show(message);
 		}
+
+		private bool HasChecked()
+		{
+			var rest = AmountLegs;
+			for (int i = 0; i < 3; i++)
+			{
+				var target = ValidateTarget(rest);
+				var hit = _playerHand.ThrowDart(target);
+				rest -= hit.Value;
+				if (rest == 0)
+					return true;
+				if (rest < 0 || rest == 1)
+					return false;
+			}
+
+			return false;
+		}
+
+		private Field ValidateTarget(int rest)
+		{
+			if (rest == 50)
+				return DartBoard.Instance.GetDoubleBull();
+			var doubleField = DartBoard.Instance.GetDoubleField(rest);
+			if (doubleField != null)
+				return doubleField;
+			Field singleField = null;
+			int divisor = 0;
+			foreach (var field in DartBoard.Instance.GetAllFields().Where(x => x.Type == FieldEnum.SingleOut && x.Value < rest))
+			{
+				var currentDivisor = 16;
+				while (currentDivisor > divisor)
+				{
+					if ((rest-field.Value) <= 40 && (rest-field.Value) % currentDivisor == 0)
+					{
+						singleField = field;
+						divisor = currentDivisor;
+						continue;
+					}
+
+					currentDivisor = currentDivisor / 2;
+				}
+			}
+
+			return singleField;
+		}
+
 		#endregion
 	}
 }

@@ -6,7 +6,7 @@ namespace DartBot.Player
 {
 	public interface IPlayerService
 	{
-		Leg PlayLeg();
+		Leg PlayLeg(bool withOpponent);
 		Round GetRound(int leftScore, int index);
 		Round GetNoScore();
 		Field ValidateTarget(int leftScore, int leftDarts);

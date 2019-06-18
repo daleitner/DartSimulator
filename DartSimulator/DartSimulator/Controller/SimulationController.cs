@@ -17,7 +17,7 @@ namespace DartSimulator.Controller
 		{
 			this.player = playerService;
 		}
-		public Result StartSimulation(int legs, int my, int sigma, bool score19)
+		public Result StartSimulation(int legs, int my, int sigma, bool score19, bool withOpponent)
 		{
 			DartBoard.Instance.ClearDartboard();
 			player.AssignQuotes(my, sigma);
@@ -26,7 +26,7 @@ namespace DartSimulator.Controller
 			points = new List<Point>();
 			for (int i = 0; i < legs; i++)
 			{
-				var leg = this.player.PlayLeg();
+				var leg = this.player.PlayLeg(withOpponent);
 				points.AddRange(player.HitPoints);
 				leg.Index = i + 1;
 				result.Legs.Add(leg);

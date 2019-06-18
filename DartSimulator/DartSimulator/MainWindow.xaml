@@ -31,6 +31,7 @@
 					<Label Content="%"></Label>
 				</StackPanel>
 			</StackPanel>
+			<CheckBox Content="Gegner" IsChecked="{Binding WithOpponent}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,20,35"></CheckBox>
 			<Button Content="Canvas Öffnen" Command="{Binding Path=OpenCanvasCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,8"></Button>
 			<CheckBox Content="Score auf 19" IsChecked="{Binding Score19}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,35"></CheckBox>
 			<Button Content="Simulation Starten" Command="{Binding Path=StartCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,8"></Button>
