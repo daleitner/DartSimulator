@@ -53,6 +53,7 @@
     <Compile Include="ColorExtension.cs" />
     <Compile Include="DartBoard.cs" />
     <Compile Include="Field.cs" />
+    <Compile Include="FileDialogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

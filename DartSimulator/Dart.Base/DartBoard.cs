@@ -1,6 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Dart.Base
 {
@@ -242,6 +247,7 @@ namespace Dart.Base
 		}
 		#endregion
 
+		#region Dartboard image
 		/// <summary>
 		/// Hit a dart on Position [x,y]. This Point will be marked in Dartboard Image.
 		/// </summary>
@@ -291,6 +297,7 @@ namespace Dart.Base
 			}
 			return image;
 		}
+		#endregion
 
 		/// <summary>
 		/// apply additional values to corresponding all fields included in valueDict.
@@ -401,6 +408,48 @@ namespace Dart.Base
 			{19, new Point(-25,-73) },
 			{20, new Point(0,74) },
 		};
+		#endregion
+
+		#region serialization
+
+		public void Save()
+		{
+			var fileDialogService = new FileDialogService();
+			var filename = fileDialogService.SaveFileDialog("CSV (*.csv)|*.csv", "Save Dartboard");
+			if (string.IsNullOrEmpty(filename))
+				return;
+
+			var content = new StringBuilder();
+			foreach (var field in Fields)
+			{
+				foreach (var hit in field.Hits)
+				{
+					content.Append(hit.X + ";" + hit.Y + "\r\n");
+				}
+			}
+			File.WriteAllText(filename, content.ToString());
+		}
+
+		public void Load()
+		{
+			var fileDialogService = new FileDialogService();
+			fileDialogService.OpenFileDialog("CSV (*.csv)|*.csv", "Save Dartboard", out var fileName);
+			if (string.IsNullOrEmpty(fileName))
+				return;
+
+			ClearDartboard();
+			var content = File.ReadAllText(fileName);
+			var lines = content.Replace("\r\n", "\n").Split('\n');
+			foreach (var line in lines)
+			{
+				var cells = line.Split(';');
+				if (cells.Length != 2)
+					continue;
+				var x = int.Parse(cells[0]);
+				var y = int.Parse(cells[1]);
+				Hit(x, y);
+			}
+		}
 		#endregion
 	}
 }

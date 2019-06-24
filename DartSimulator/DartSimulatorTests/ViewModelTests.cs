@@ -45,7 +45,7 @@ namespace DartSimulatorTests
 		{
 			var viewModel = new MainViewModel(controllerMock.Object, _playerHand.Object);
 			viewModel.StartCommand.Execute(null);
-			controllerMock.Verify(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>()), Times.Once, "Start Simulation was not triggered");
+			controllerMock.Verify(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<bool>()), Times.Once, "Start Simulation was not triggered");
 			controllerMock.Verify(x => x.FillRoundCounts(It.IsAny<ObservableCollection<RoundCount>>(), It.IsAny<Result>()), Times.Once, "FillRoundCounts was not triggered");
 		}
 
@@ -85,7 +85,7 @@ namespace DartSimulatorTests
 			{
 				Legs = new List<Leg> { leg1, leg2 }
 			};
-			controllerMock.Setup(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>())).Returns(result);
+			controllerMock.Setup(x => x.StartSimulation(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<bool>())).Returns(result);
 			controllerMock
 				.Setup(x => x.FillRoundCounts(It.IsAny<ObservableCollection<RoundCount>>(), It.IsAny<Result>()))
 				.Returns(new ObservableCollection<RoundCount>(){new RoundCount("15")});

@@ -25,7 +25,7 @@ namespace DartBotTests.Player
 		public void WhenPlayLeg_ThenLegShouldHaveFiveHundretOnePoints()
 		{
 			var player = new PlayerService(new PlayerHand());
-			var leg = player.PlayLeg();
+			var leg = player.PlayLeg(false);
 			Approvals.Verify("Points: " + leg.Points);
 		}
 
@@ -33,7 +33,7 @@ namespace DartBotTests.Player
 		public void WhenPlayLeg_ThenLastDartShouldBeADoubleField()
 		{
 			var player = new PlayerService(new PlayerHand());
-			var leg = player.PlayLeg();
+			var leg = player.PlayLeg(false);
 			var last = leg.Runden.Last().Dart1;
 			if(leg.AmountDarts % 3 == 2)
 				last = leg.Runden.Last().Dart2;
